@@ -31,8 +31,14 @@ const LoginScreen = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [errorButton, setErrorButton] = useState("");
   const navigation = useNavigation();
-  const { setUserEmail, setUserName, setUserAge, setUserPhoneNumber } =
-    useContext(AppContext);
+  const {
+    setUserEmail,
+    setUserName,
+    setUserAge,
+    setUserPhoneNumber,
+    setUserAddresses,
+    userAddresses,
+  } = useContext(AppContext);
   const dispatch = useDispatch();
   const handleLogin = async () => {
     try {
@@ -40,11 +46,13 @@ const LoginScreen = () => {
         email: email,
         password: password,
       });
-      const { token, username, userEmail, phoneNumber, age } = response.data;
+      const { token, username, userEmail, phoneNumber, age, addresses } =
+        response.data;
       setUserEmail(userEmail);
       setUserName(username);
       setUserAge(age);
       setUserPhoneNumber(phoneNumber);
+      setUserAddresses(addresses);
       dispatch(loadWishlistFromStorage(userEmail));
       dispatch(loadCartFromStorage(userEmail));
       await AsyncStorage.setItem("token", token);

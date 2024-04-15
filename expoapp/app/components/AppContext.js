@@ -7,6 +7,15 @@ export const AppProvider = ({ children }) => {
   const [userEmail, setUserEmail] = useState("");
   const [userPhoneNumber, setUserPhoneNumber] = useState("");
   const [userAge, setUserAge] = useState("");
+  const [userAddresses, setUserAddresses] = useState([]);
+  const [order, setOrder] = useState({
+    products: [],
+    userEmail: "",
+    address: "",
+    totalAmount: 0,
+    paymentMethod: "",
+    paymentStatus: "",
+  });
 
   return (
     <AppContext.Provider
@@ -19,6 +28,10 @@ export const AppProvider = ({ children }) => {
         setUserPhoneNumber,
         userAge,
         setUserAge,
+        userAddresses,
+        setUserAddresses,
+        order,
+        setOrder,
       }}
     >
       {children}

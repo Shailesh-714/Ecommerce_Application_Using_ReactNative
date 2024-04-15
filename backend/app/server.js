@@ -10,12 +10,11 @@ require("dotenv").config();
 const app = express();
 const PORT = 3000;
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
-// MongoDB Connection
+//mongodb
 mongoose.connect(
   "mongodb+srv://shailesh:7104@reactive-native-app.tgklloh.mongodb.net/?retryWrites=true&w=majority&appName=reactive-native-app",
   {
@@ -27,7 +26,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 db.once("open", () => console.log("Connected to MongoDB"));
 
-// User Model
+//user model
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
@@ -36,16 +35,49 @@ const UserSchema = new mongoose.Schema({
   age: { type: String },
   addresses: [
     {
-      address: String,
+      addressUserName: String,
+      lane: String,
       street: String,
       city: String,
       state: String,
       country: String,
       postalCode: String,
+      contactNumber: String,
     },
   ],
 });
 const User = mongoose.model("User", UserSchema);
+
+//order model
+const orderSchema = new mongoose.Schema({
+  userEmail: {
+    type: String,
+    ref: "User",
+    required: true,
+    index: true,
+  },
+  address: { type: String, required: true },
+  totalAmount: { type: Number, required: true },
+  paymentMethod: { type: String, required: true },
+  paymentStatus: { type: String, required: true },
+  orderDate: { type: Date, default: Date.now },
+  deliveryDate: {
+    type: Date,
+    default: function () {
+      const deliveryDate = new Date();
+      deliveryDate.setDate(this.orderDate.getDate() + 7);
+      return deliveryDate;
+    },
+  },
+  products: [
+    {
+      productId: { type: String, required: true },
+      productCount: { type: Number, required: true },
+    },
+  ],
+});
+
+const Order = mongoose.model("Order", orderSchema);
 
 //nodemailer
 const transporter = nodemailer.createTransport({
@@ -125,6 +157,7 @@ app.post("/login", async (req, res) => {
       userEmail,
       phoneNumber: user.phoneNumber,
       age: user.age,
+      addresses: user.addresses,
     });
   } catch (err) {
     console.error(err);
@@ -157,7 +190,64 @@ app.post("/addAddress", async (req, res) => {
       res.status(401).send("User Not Found");
     }
     user.addresses.push(newAddress);
-    res.status(201).send("Address added");
+    await user.save();
+    res.json({ addressList: user.addresses });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/deleteAddress", async (req, res) => {
+  try {
+    const { email, _id } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      res.status(401).send("User Not Found");
+    }
+    const addressDeleted = await User.findOneAndUpdate(
+      { email },
+      { $pull: { addresses: { _id } } },
+      { new: true }
+    );
+    if (!addressDeleted) {
+      res.status(401).send("Address not deleted");
+    }
+    res.json({ addressList: addressDeleted.addresses });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/order", async (req, res) => {
+  try {
+    const {
+      userEmail,
+      address,
+      totalAmount,
+      paymentMethod,
+      paymentStatus,
+      products,
+    } = req.body;
+    const newOrder = new Order({
+      userEmail,
+      address,
+      totalAmount,
+      paymentMethod,
+      paymentStatus,
+      products: products,
+    });
+    console.log(newOrder);
+    await newOrder.save();
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/getOrderDetails", async (req, res) => {
+  try {
+    const { userEmail } = req.body;
+    const orders = await Order.find({ userEmail: userEmail });
+    res.json({ orders });
   } catch (err) {
     console.log(err);
   }

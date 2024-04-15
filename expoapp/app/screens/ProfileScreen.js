@@ -105,12 +105,13 @@ const ProfileScreen = () => {
             <Text
               numberOfLines={1}
               style={{
-                color: "white",
-                fontSize: 12,
-                fontWeight: "500",
+                color: "rgba(255,255,255,0.7)",
+                fontSize: 9.5,
+                fontWeight: "400",
                 overflow: "hidden",
                 maxWidth: 200,
                 marginBottom: 5,
+                marginTop: 5,
                 marginHorizontal: 1,
               }}
             >
@@ -121,7 +122,7 @@ const ProfileScreen = () => {
             style={{
               alignItems: "center",
               justifyContent: "center",
-              marginLeft: 15,
+              marginLeft: 50,
             }}
           >
             <MaterialIcons
@@ -153,8 +154,8 @@ const ProfileScreen = () => {
               flexDirection: "row",
             }}
           >
-            <FontAwesome name="inbox" size={24} color="black" />
-            <Text style={{ fontSize: 18, fontWeight: "500" }}>Orders</Text>
+            <FontAwesome name="inbox" size={18} color="black" />
+            <Text style={{ fontSize: 15, fontWeight: "500" }}>Orders</Text>
           </Pressable>
           <Pressable
             onPress={() => navigation.navigate("WishList")}
@@ -169,8 +170,8 @@ const ProfileScreen = () => {
               gap: 10,
             }}
           >
-            <FontAwesome5 name="heart" size={20} color="rgba(0,0,0,1)" />
-            <Text style={{ fontSize: 18, fontWeight: "500" }}>Wishlist</Text>
+            <FontAwesome5 name="heart" size={17} color="rgba(0,0,0,1)" />
+            <Text style={{ fontSize: 15, fontWeight: "500" }}>Wishlist</Text>
           </Pressable>
           <Pressable
             onPress={() => navigation.navigate("Cart")}
@@ -185,8 +186,8 @@ const ProfileScreen = () => {
               flexDirection: "row",
             }}
           >
-            <Feather name="shopping-bag" size={21.5} color="rgba(0,0,0,1)" />
-            <Text style={{ fontSize: 18, fontWeight: "500" }}>Cart</Text>
+            <Feather name="shopping-bag" size={18} color="rgba(0,0,0,1)" />
+            <Text style={{ fontSize: 15, fontWeight: "500" }}>Cart</Text>
           </Pressable>
           <Pressable
             onPress={() => navigation.navigate("Address")}
@@ -201,8 +202,8 @@ const ProfileScreen = () => {
               flexDirection: "row",
             }}
           >
-            <Entypo name="location" size={24} color="black" />
-            <Text style={{ fontSize: 18, fontWeight: "500" }}>Addresses</Text>
+            <Entypo name="location" size={18} color="black" />
+            <Text style={{ fontSize: 15, fontWeight: "500" }}>Addresses</Text>
           </Pressable>
         </View>
       </ScrollView>

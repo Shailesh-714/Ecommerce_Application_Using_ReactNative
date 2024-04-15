@@ -1,5 +1,6 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Ionicons,
@@ -12,6 +13,7 @@ import Wishlist from "../components/Wishlist";
 import Cart from "../components/Cart";
 
 const CategoryScreen = () => {
+  const navigation = useNavigation();
   const category_list = [
     "Electronics",
     "Clothing & Accessories",
@@ -70,7 +72,10 @@ const CategoryScreen = () => {
       </View>
       <ScrollView>
         {category_list.map((item, index) => (
-          <Pressable key={index}>
+          <Pressable
+            key={index}
+            onPress={() => navigation.navigate("PageNotReady")}
+          >
             <View
               style={{
                 backgroundColor: "white",

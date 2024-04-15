@@ -1,14 +1,20 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Cart from "../components/Cart";
 import Wishlist from "../components/Wishlist";
 import StepIndicator from "react-native-step-indicator";
 import CartProducts from "./ProgressBar/CartProducts";
-import DeliveryAddress from "./ProgressBar/DeliveryAddress";
 import PaymentScreen from "./ProgressBar/PaymentScreen";
 import ConfirmOrder from "./ProgressBar/ConfirmOrder";
+import AddressScreen from "./User/AddressScreen";
+import { AppContext } from "../components/AppContext";
+import { selectCartItems } from "../redux/reducers/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
+import { resetCartItemsCount } from "../redux/reducers/cartSlice";
 
 const labels = [
   "Cart List",
@@ -39,12 +45,6 @@ const customStyles = {
   labelSize: 8,
   currentStepLabelColor: "#50C878",
 };
-const renderScreen = [
-  <CartProducts />,
-  <DeliveryAddress />,
-  <PaymentScreen />,
-  <ConfirmOrder />,
-];
 
 const nextButton = [
   "Check Out",
@@ -54,9 +54,80 @@ const nextButton = [
 ];
 
 const CartScreen = () => {
+  const cartItems = useSelector(selectCartItems);
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + item.price * item.count,
+    0
+  );
+  const productInfoList = cartItems.map((item) => ({
+    productId: item.id,
+    productCount: item.count,
+  }));
+  const { userEmail, order, setOrder } = useContext(AppContext);
   const [currentPosition, setCurrentPosition] = useState(0);
-  const nextPage = () => setCurrentPosition(currentPosition + 1);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handlePlaceOrder = async () => {
+    try {
+      const response = await axios.post("http://192.168.2.176:3000/order", {
+        userEmail: userEmail,
+        address: order.address,
+        totalAmount: totalPrice,
+        paymentMethod: order.paymentMethod,
+        paymentStatus: order.paymentStatus,
+        products: productInfoList,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const nextPage = () => {
+    switch (currentPosition) {
+      case 0:
+        if (cartItems.length !== 0) {
+          setOrder({
+            ...order,
+            userEmail: userEmail,
+          });
+          setCurrentPosition(currentPosition + 1);
+        }
+        break;
+      case 1:
+        if (order.address !== "") {
+          setCurrentPosition(currentPosition + 1);
+        }
+        break;
+      case 2:
+        if (order.paymentMethod !== "") {
+          if (order.paymentMethod === "COD" || order.paymentStatus == "Paid") {
+            setCurrentPosition(currentPosition + 1);
+            handlePlaceOrder();
+            setOrder({
+              products: [],
+              userEmail: "",
+              address: "",
+              totalAmount: 0,
+              paymentMethod: "",
+              paymentStatus: "",
+            });
+            dispatch(resetCartItemsCount({ userEmail }));
+          }
+        }
+        break;
+      case 3:
+        navigation.navigate("Main");
+    }
+  };
   const prevPage = () => setCurrentPosition(currentPosition - 1);
+
+  const renderScreen = [
+    <CartProducts />,
+    <AddressScreen showAddressHeader={true} />,
+    <PaymentScreen />,
+    <ConfirmOrder />,
+  ];
   return (
     <SafeAreaView
       style={{
@@ -134,7 +205,7 @@ const CartScreen = () => {
             </Text>
           </View>
         </View>
-        {renderScreen[currentPosition]}
+        <View style={{ height: "78.6%" }}>{renderScreen[currentPosition]}</View>
       </View>
 
       <View

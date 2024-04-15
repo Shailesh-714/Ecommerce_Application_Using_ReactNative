@@ -48,11 +48,24 @@ const cartSlice = createSlice({
         saveCartToStorage(state.cartList, userEmail);
       }
     },
+    resetCartItemsCount: (state, action) => {
+      const { userEmail } = action.payload;
+      state.cartList.forEach((item) => {
+        item.count = 0;
+        item.addedtocart = false;
+      });
+      saveCartToStorage(state.cartList, userEmail);
+    },
   },
 });
 
-export const { toggleAddedtocart, setCart, incrementCount, decrementCount } =
-  cartSlice.actions;
+export const {
+  toggleAddedtocart,
+  setCart,
+  incrementCount,
+  decrementCount,
+  resetCartItemsCount,
+} = cartSlice.actions;
 
 export const selectCartList = (state) => state.cart.cartList;
 
