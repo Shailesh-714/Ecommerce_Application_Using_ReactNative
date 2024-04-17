@@ -16,6 +16,7 @@ export const AppProvider = ({ children }) => {
     paymentMethod: "",
     paymentStatus: "",
   });
+  const [totalAmount, setTotalAmount] = useState(0);
 
   return (
     <AppContext.Provider
@@ -32,6 +33,8 @@ export const AppProvider = ({ children }) => {
         setUserAddresses,
         order,
         setOrder,
+        totalAmount,
+        setTotalAmount,
       }}
     >
       {children}

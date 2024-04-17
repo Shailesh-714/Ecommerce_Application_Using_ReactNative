@@ -7,7 +7,7 @@ import {
   Image,
   useWindowDimensions,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Ionicons,
   MaterialIcons,
@@ -29,11 +29,15 @@ const CartProducts = () => {
   const navigation = useNavigation();
   const screenWidth = useWindowDimensions("window").width;
   const cartItems = useSelector(selectCartItems);
-  const { order, setOrder } = useContext(AppContext);
+  const { setTotalAmount } = useContext(AppContext);
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.count,
     0
   );
+  useEffect(() => {
+    setTotalAmount(totalPrice);
+  }, [totalPrice]);
+
   const handleProductPress = (productId) => {
     navigation.navigate("Product", { id: productId });
   };
@@ -150,23 +154,6 @@ const CartProducts = () => {
           ))}
         </View>
       </ScrollView>
-      <View
-        style={{
-          backgroundColor: "white",
-          bottom: 0,
-          paddingTop: 10,
-        }}
-      >
-        <Text
-          style={{
-            marginHorizontal: screenWidth * 0.06,
-            fontSize: 17,
-            fontWeight: "500",
-          }}
-        >
-          Total Amount :{"  "}₹{totalPrice}
-        </Text>
-      </View>
     </View>
   );
 };

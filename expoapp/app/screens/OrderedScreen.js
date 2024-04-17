@@ -21,6 +21,7 @@ import axios from "axios";
 import { AppContext } from "../components/AppContext";
 import { deals } from "../data/DealsData";
 import CustomDate from "../components/CustomDate";
+import { useFocusEffect } from "@react-navigation/native";
 const OrderedScreen = () => {
   const [orderData, setOrderData] = useState([]);
   const { userEmail } = useContext(AppContext);
@@ -39,9 +40,12 @@ const OrderedScreen = () => {
     } catch (error) {}
   };
 
-  useEffect(() => {
-    fetchOrderData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchOrderData();
+    }, [])
+  );
+
   return (
     <SafeAreaView
       style={{
@@ -90,14 +94,34 @@ const OrderedScreen = () => {
                 padding: 10,
               }}
             >
-              <Text style={{ fontWeight: "600", letterSpacing: -0.5 }}>
+              <Text
+                style={{
+                  fontWeight: "600",
+                  letterSpacing: -0.5,
+                  marginVertical: 5,
+                }}
+              >
                 Order ID : {item._id}
               </Text>
-              <View style={{ flexDirection: "row", gap: 5 }}>
-                {item.products.map((product, productIndex) => (
+              <Text
+                style={{
+                  fontWeight: "600",
+                  letterSpacing: -0.5,
+                  marginVertical: 5,
+                }}
+              >
+                Ordered Products :
+              </Text>
+
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                {item.products.slice(0, 4).map((product, productIndex) => (
                   <View
                     key={productIndex}
-                    style={{ flexDirection: "row", flexWrap: "wrap" }}
+                    style={{
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                      left: -10 * productIndex,
+                    }}
                   >
                     {deals
                       .filter(
@@ -107,26 +131,54 @@ const OrderedScreen = () => {
                         <View
                           key={orderItemIndex}
                           style={{
-                            backgroundColor: "black",
+                            backgroundColor: "rgba(0,0,0,0.2)",
                             borderRadius: 100,
                             padding: 1,
+                            marginVertical: 5,
                           }}
                         >
-                          <Image
-                            source={orderItem.image}
+                          <View
                             style={{
-                              width: 50,
-                              height: 50,
-                              borderRadius: 50,
-                              margin: 1,
+                              padding: 1,
+                              backgroundColor: "white",
+                              borderRadius: 100,
                             }}
-                          />
+                          >
+                            <Image
+                              source={orderItem.image}
+                              style={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: 50,
+                              }}
+                            />
+                          </View>
                         </View>
                       ))}
                   </View>
                 ))}
+                <View>
+                  {item.products.length > 4 && (
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        color: "#aaaaaa",
+                        fontWeight: "600",
+                        left: -15,
+                      }}
+                    >
+                      +{item.products.length - 4} products
+                    </Text>
+                  )}
+                </View>
               </View>
-              <Text style={{ fontWeight: "500", color: "#50C878" }}>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  color: "#50C878",
+                  marginVertical: 5,
+                }}
+              >
                 Arriving On <CustomDate date={item.deliveryDate} />
               </Text>
             </View>

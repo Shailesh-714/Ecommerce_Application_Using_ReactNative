@@ -63,7 +63,7 @@ const CartScreen = () => {
     productId: item.id,
     productCount: item.count,
   }));
-  const { userEmail, order, setOrder } = useContext(AppContext);
+  const { userEmail, order, setOrder, totalAmount } = useContext(AppContext);
   const [currentPosition, setCurrentPosition] = useState(0);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -216,6 +216,18 @@ const CartScreen = () => {
           width: "100%",
         }}
       >
+        {currentPosition === 0 && (
+          <Text
+            style={{
+              marginHorizontal: 20,
+              marginTop: 5,
+              fontSize: 17,
+              fontWeight: "500",
+            }}
+          >
+            Total Amount :{"  "}₹{totalAmount}
+          </Text>
+        )}
         <Pressable
           onPress={nextPage}
           style={{
