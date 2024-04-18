@@ -10,14 +10,19 @@ import {
   Text,
   Alert,
   TouchableOpacity,
+  useWindowDimensions,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { AppContext } from "../../components/AppContext";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
+import { Octicons } from "@expo/vector-icons";
+import Wishlist from "../../components/Wishlist";
+import Cart from "../../components/Cart";
 
 const { height } = Dimensions.get("window");
 
-const UserDetails = ({ isVisible }) => {
+const UserDetails = () => {
   const {
     userName,
     userEmail,
@@ -32,7 +37,7 @@ const UserDetails = ({ isVisible }) => {
   const [phoneNumber, setPhoneNumber] = useState(userPhoneNumber);
   const [age, setAge] = useState(userAge);
   const navigation = useNavigation();
-
+  const screenWidth = useWindowDimensions("window").width;
   const updateUserData = async () => {
     try {
       const response = await axios.post(
@@ -54,156 +59,147 @@ const UserDetails = ({ isVisible }) => {
     }
   };
 
-  const translateY = new Animated.Value(height);
-
-  useEffect(() => {
-    Animated.timing(translateY, {
-      toValue: isVisible ? 0 : height,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  }, [isVisible]);
-
   return (
-    <View>
-      <Animated.View
-        style={[styles.container, { transform: [{ translateY }] }]}
+    <SafeAreaView
+      style={{
+        marginTop: 5,
+        flex: 1,
+      }}
+    >
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "92%",
+          marginVertical: 16,
+        }}
       >
-        <View style={styles.content}>
-          <View style={{ alignItems: "center" }}>
-            <Text
-              style={{
-                borderBottomWidth: 1,
-                borderColor: "rgba(0,0,0,0.2)",
-                fontSize: 20,
-                fontWeight: "500",
-                paddingHorizontal: 10,
-                paddingBottom: 5,
-                marginBottom: 10,
-              }}
-            >
-              User Info
-            </Text>
-          </View>
-          <View style={{ flexDirection: "row", gap: 10 }}>
-            <View style={{ marginVertical: 10, flex: 1 }}>
-              <Text style={{ fontWeight: "500" }}>Username</Text>
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: "rgba(0,0,0,0.4)",
-                  borderRadius: 5,
-                  marginVertical: 3,
-                }}
-              >
-                <TextInput
-                  value={newUsername}
-                  onChangeText={(text) => setNewUsername(text)}
-                  placeholder="Enter Username"
-                  style={{ padding: 7 }}
-                />
-              </View>
-            </View>
-            <View style={{ marginVertical: 10, flex: 1 }}>
-              <Text style={{ fontWeight: "500" }}>Age</Text>
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: "rgba(0,0,0,0.4)",
-                  borderRadius: 5,
-                  marginVertical: 3,
-                }}
-              >
-                <TextInput
-                  value={age}
-                  onChangeText={(text) => setAge(text)}
-                  placeholder="Enter Age"
-                  style={{ padding: 7 }}
-                />
-              </View>
-            </View>
-          </View>
-
-          <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontWeight: "500" }}>Email</Text>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "rgba(0,0,0,0.4)",
-                borderRadius: 5,
-                marginVertical: 3,
-              }}
-            >
-              <TextInput
-                value={newUserEmail}
-                onChangeText={(text) => setNewUserEmail(text)}
-                placeholder="Enter Email"
-                style={{ padding: 7 }}
-              />
-            </View>
-          </View>
-          <View style={{ marginVertical: 10 }}>
-            <Text style={{ fontWeight: "500" }}>Mobile No.</Text>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: "rgba(0,0,0,0.4)",
-                borderRadius: 5,
-                marginVertical: 3,
-              }}
-            >
-              <TextInput
-                value={phoneNumber}
-                onChangeText={(text) => setPhoneNumber(text)}
-                placeholder="Enter Mobile No."
-                style={{ padding: 7 }}
-              />
-            </View>
-          </View>
-
-          <TouchableOpacity
-            onPress={updateUserData}
+        <View>
+          <Text
             style={{
-              borderWidth: 2,
-              borderColor: "#50C878",
-              borderRadius: 5,
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 10,
-              marginTop: 20,
-              marginBottom: 10,
+              fontSize: 20,
+              fontWeight: "600",
+              marginLeft: 20,
+              letterSpacing: 1.2,
             }}
           >
-            <Text
+            User Info
+          </Text>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
+          <Octicons name="bell" size={20.5} color="rgba(0,0,0,0.7)" />
+          <Wishlist />
+          <Cart />
+        </View>
+      </View>
+      <View style={{ marginHorizontal: screenWidth * 0.05, flex: 1 }}>
+        <View style={{ flexDirection: "row", gap: 10 }}>
+          <View style={{ marginVertical: 10, flex: 1 }}>
+            <Text style={{ fontWeight: "500" }}>Username</Text>
+            <View
               style={{
-                color: "#50C878",
-                fontWeight: "600",
-                fontSize: 14,
-                letterSpacing: -0.5,
+                borderWidth: 1,
+                borderColor: "rgba(0,0,0,0.4)",
+                borderRadius: 5,
+                marginVertical: 3,
               }}
             >
-              Save Changes
-            </Text>
-          </TouchableOpacity>
+              <TextInput
+                value={newUsername}
+                onChangeText={(text) => setNewUsername(text)}
+                placeholder="Enter Username"
+                style={{ padding: 7 }}
+              />
+            </View>
+          </View>
+          <View style={{ marginVertical: 10, flex: 1 }}>
+            <Text style={{ fontWeight: "500" }}>Age</Text>
+            <View
+              style={{
+                borderWidth: 1,
+                borderColor: "rgba(0,0,0,0.4)",
+                borderRadius: 5,
+                marginVertical: 3,
+              }}
+            >
+              <TextInput
+                value={age}
+                onChangeText={(text) => setAge(text)}
+                placeholder="Enter Age"
+                style={{ padding: 7 }}
+              />
+            </View>
+          </View>
         </View>
-      </Animated.View>
-    </View>
+
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ fontWeight: "500" }}>Email</Text>
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: "rgba(0,0,0,0.4)",
+              borderRadius: 5,
+              marginVertical: 3,
+            }}
+          >
+            <TextInput
+              value={newUserEmail}
+              onChangeText={(text) => setNewUserEmail(text)}
+              placeholder="Enter Email"
+              style={{ padding: 7 }}
+            />
+          </View>
+        </View>
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ fontWeight: "500" }}>Mobile No.</Text>
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: "rgba(0,0,0,0.4)",
+              borderRadius: 5,
+              marginVertical: 3,
+            }}
+          >
+            <TextInput
+              value={phoneNumber}
+              onChangeText={(text) => setPhoneNumber(text)}
+              placeholder="Enter Mobile No."
+              style={{ padding: 7 }}
+            />
+          </View>
+        </View>
+
+        <TouchableOpacity
+          onPress={updateUserData}
+          style={{
+            borderWidth: 2,
+            borderColor: "#50C878",
+            borderRadius: 5,
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 10,
+            marginVertical: 20,
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+          }}
+        >
+          <Text
+            style={{
+              color: "#50C878",
+              fontWeight: "600",
+              fontSize: 14,
+              letterSpacing: -0.5,
+            }}
+          >
+            Save Changes
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: "white",
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
-    backgroundColor: "white",
-  },
-  content: {},
-});
+const styles = StyleSheet.create({});
 
 export default UserDetails;

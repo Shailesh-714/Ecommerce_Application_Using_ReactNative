@@ -23,16 +23,13 @@ import Wishlist from "../components/Wishlist";
 import Cart from "../components/Cart";
 import { AppContext } from "../components/AppContext";
 
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import UserDetails from "./User/UserDetails";
 
 const ProfileScreen = () => {
   const { userName, userEmail, userPhoneNumber } = useContext(AppContext);
-  const [showUserDetails, setShowUserDetails] = useState(false);
   const screenWidth = useWindowDimensions("window").width;
   const navigation = useNavigation();
-  const toggleUserDetails = () => setShowUserDetails(!showUserDetails);
   return (
     <SafeAreaView
       style={{
@@ -73,7 +70,7 @@ const ProfileScreen = () => {
       >
         <View style={{ alignItems: "center" }}>
           <Pressable
-            onPress={toggleUserDetails}
+            onPress={() => navigation.navigate("UserDetails")}
             style={{
               flexDirection: "row",
               backgroundColor: "#020121",
@@ -124,6 +121,7 @@ const ProfileScreen = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 marginLeft: 50,
+                padding: 5,
               }}
             >
               <MaterialIcons
@@ -156,7 +154,7 @@ const ProfileScreen = () => {
               }}
             >
               <FontAwesome name="inbox" size={18} color="black" />
-              <Text style={{ fontSize: 15, fontWeight: "500" }}>Orders</Text>
+              <Text style={{ fontSize: 16, fontWeight: "500" }}>Orders</Text>
             </Pressable>
             <Pressable
               onPress={() => navigation.navigate("WishList")}
@@ -172,7 +170,7 @@ const ProfileScreen = () => {
               }}
             >
               <FontAwesome5 name="heart" size={17} color="rgba(0,0,0,1)" />
-              <Text style={{ fontSize: 15, fontWeight: "500" }}>Wishlist</Text>
+              <Text style={{ fontSize: 16, fontWeight: "500" }}>Wishlist</Text>
             </Pressable>
             <Pressable
               onPress={() => navigation.navigate("Cart")}
@@ -188,7 +186,7 @@ const ProfileScreen = () => {
               }}
             >
               <Feather name="shopping-bag" size={18} color="rgba(0,0,0,1)" />
-              <Text style={{ fontSize: 15, fontWeight: "500" }}>Cart</Text>
+              <Text style={{ fontSize: 16, fontWeight: "500" }}>Cart</Text>
             </Pressable>
             <Pressable
               onPress={() => navigation.navigate("Address")}
@@ -204,12 +202,11 @@ const ProfileScreen = () => {
               }}
             >
               <Entypo name="location" size={18} color="black" />
-              <Text style={{ fontSize: 15, fontWeight: "500" }}>Addresses</Text>
+              <Text style={{ fontSize: 16, fontWeight: "500" }}>Addresses</Text>
             </Pressable>
           </View>
         </View>
       </ScrollView>
-      <UserDetails isVisible={showUserDetails} />
     </SafeAreaView>
   );
 };

@@ -1,8 +1,10 @@
 import {
   Image,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
   useWindowDimensions,
 } from "react-native";
@@ -21,11 +23,12 @@ import axios from "axios";
 import { AppContext } from "../components/AppContext";
 import { deals } from "../data/DealsData";
 import CustomDate from "../components/CustomDate";
-import { useFocusEffect } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 const OrderedScreen = () => {
   const [orderData, setOrderData] = useState([]);
   const { userEmail } = useContext(AppContext);
   const screenWidth = useWindowDimensions("window").width;
+  const navigation = useNavigation();
   const fetchOrderData = async () => {
     try {
       const response = await axios.post(
@@ -36,8 +39,9 @@ const OrderedScreen = () => {
       );
       const { orders } = response.data;
       setOrderData(orders);
-      console.log(orders);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useFocusEffect(
@@ -91,9 +95,20 @@ const OrderedScreen = () => {
                 backgroundColor: "white",
                 borderRadius: 10,
                 marginVertical: 5,
-                padding: 10,
+                paddingHorizontal: 20,
+                paddingVertical: 10,
               }}
             >
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: "600",
+                  color: "#50C878",
+                  marginVertical: 5,
+                }}
+              >
+                Arriving On <CustomDate date={item.deliveryDate} />
+              </Text>
               <Text
                 style={{
                   fontWeight: "600",
@@ -113,7 +128,13 @@ const OrderedScreen = () => {
                 Ordered Products :
               </Text>
 
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginHorizontal: 10,
+                }}
+              >
                 {item.products.slice(0, 4).map((product, productIndex) => (
                   <View
                     key={productIndex}
@@ -161,13 +182,14 @@ const OrderedScreen = () => {
                   {item.products.length > 4 && (
                     <Text
                       style={{
+                        fontSize: 13,
                         textAlign: "center",
-                        color: "#aaaaaa",
+                        color: "rgba(0,0,0,0.4)",
                         fontWeight: "600",
-                        left: -15,
+                        left: -20,
                       }}
                     >
-                      +{item.products.length - 4} products
+                      +{item.products.length - 4} more
                     </Text>
                   )}
                 </View>
@@ -175,12 +197,28 @@ const OrderedScreen = () => {
               <Text
                 style={{
                   fontWeight: "500",
-                  color: "#50C878",
                   marginVertical: 5,
                 }}
               >
-                Arriving On <CustomDate date={item.deliveryDate} />
+                Order Value : ₹{item.totalAmount}
               </Text>
+
+              <View style={{ flex: 1, alignItems: "flex-end" }}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("OrderDetails", { item })}
+                >
+                  <Text
+                    style={{
+                      color: "#eb104e",
+                      letterSpacing: -0.6,
+                      fontWeight: "500",
+                      marginVertical: 5,
+                    }}
+                  >
+                    more details{">>"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           ))}
         </View>

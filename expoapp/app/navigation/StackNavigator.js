@@ -27,6 +27,8 @@ import WishListScreen from "../screens/WishListScreen";
 import PageNotReady from "../screens/PageNotReady";
 import VerificationScreen from "../screens/VerificationScreen";
 import AddressScreen from "../screens/User/AddressScreen";
+import OrderDetails from "../screens/User/OrderDetails";
+import UserDetails from "../screens/User/UserDetails";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -171,6 +173,16 @@ const StackNavigator = () => {
         <Stack.Screen
           name="Address"
           component={AddressScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OrderDetails"
+          component={OrderDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="UserDetails"
+          component={UserDetails}
           options={{ headerShown: false }}
         />
 
