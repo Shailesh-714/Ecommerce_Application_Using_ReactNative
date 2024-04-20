@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -12,13 +12,22 @@ import {
   TouchableOpacity,
   useWindowDimensions,
 } from "react-native";
+import { SERVER_IP } from "@env";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AppContext } from "../../components/AppContext";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
-import { Octicons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Feather,
+  MaterialIcons,
+  Octicons,
+} from "@expo/vector-icons";
 import Wishlist from "../../components/Wishlist";
 import Cart from "../../components/Cart";
+import ProfilePicture from "../../components/ProfilePicture";
+import * as Imagepicker from "expo-image-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height } = Dimensions.get("window");
 
@@ -31,6 +40,7 @@ const UserDetails = () => {
     setUserPhoneNumber,
     userAge,
     setUserAge,
+    setProfilePicture,
   } = useContext(AppContext);
   const [newUsername, setNewUsername] = useState(userName);
   const [newUserEmail, setNewUserEmail] = useState(userEmail);
@@ -38,10 +48,12 @@ const UserDetails = () => {
   const [age, setAge] = useState(userAge);
   const navigation = useNavigation();
   const screenWidth = useWindowDimensions("window").width;
+  const [mediaModal, setMediaModal] = useState(false);
+
   const updateUserData = async () => {
     try {
       const response = await axios.post(
-        "http://192.168.2.176:3000/update-user-data",
+        `http://${SERVER_IP}/update-user-data`,
         {
           email: userEmail,
           name: newUsername,
@@ -57,6 +69,55 @@ const UserDetails = () => {
       console.log(error);
       Alert.alert("Error", "An error occurred while updating user data.");
     }
+  };
+  const uploadImageCamera = async () => {
+    try {
+      await Imagepicker.requestCameraPermissionsAsync();
+      let result = await Imagepicker.launchCameraAsync({
+        cameraType: Imagepicker.CameraType.front,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.canceled) {
+        setProfilePicture(result.assets[0].uri);
+        await AsyncStorage.setItem(
+          `@MyApp:ProfilePicture:${userEmail}`,
+          result.assets[0].uri
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setMediaModal(false);
+    }
+  };
+  const uploadImageMedia = async () => {
+    try {
+      await Imagepicker.requestMediaLibraryPermissionsAsync();
+      let result = await Imagepicker.launchImageLibraryAsync({
+        mediaTypes: Imagepicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!result.canceled) {
+        setProfilePicture(result.assets[0].uri);
+        await AsyncStorage.setItem(
+          `@MyApp:ProfilePicture:${userEmail}`,
+          result.assets[0].uri
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setMediaModal(false);
+    }
+  };
+  const deleteImage = async () => {
+    setProfilePicture("");
+    setMediaModal(false);
+    await AsyncStorage.removeItem(`@MyApp:ProfilePicture:${userEmail}`);
   };
 
   return (
@@ -92,16 +153,50 @@ const UserDetails = () => {
           <Cart />
         </View>
       </View>
-      <View style={{ marginHorizontal: screenWidth * 0.05, flex: 1 }}>
+      <View
+        style={{ marginHorizontal: screenWidth * 0.05, flex: 1, marginTop: 10 }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 25,
+            marginBottom: 40,
+            alignSelf: "center",
+            right: -10,
+          }}
+        >
+          <View
+            style={{
+              borderRadius: 1000,
+              borderWidth: 2,
+              padding: 3,
+              borderColor: "#eb104e",
+            }}
+          >
+            <ProfilePicture imgHeight={110} imgWidth={110} />
+          </View>
+          <TouchableOpacity
+            onPress={() => setMediaModal(true)}
+            style={{
+              alignSelf: "flex-end",
+              borderRadius: 100,
+              backgroundColor: "#EBD7DB",
+              padding: 6,
+              left: -30,
+            }}
+          >
+            <Feather name="camera" size={18} color="#eb104e" />
+          </TouchableOpacity>
+        </View>
         <View style={{ flexDirection: "row", gap: 10 }}>
           <View style={{ marginVertical: 10, flex: 1 }}>
-            <Text style={{ fontWeight: "500" }}>Username</Text>
+            <Text style={{ fontWeight: "500", fontSize: 14 }}>Username</Text>
             <View
               style={{
                 borderWidth: 1,
                 borderColor: "rgba(0,0,0,0.4)",
                 borderRadius: 5,
-                marginVertical: 3,
+                marginVertical: 5,
               }}
             >
               <TextInput
@@ -119,7 +214,7 @@ const UserDetails = () => {
                 borderWidth: 1,
                 borderColor: "rgba(0,0,0,0.4)",
                 borderRadius: 5,
-                marginVertical: 3,
+                marginVertical: 5,
               }}
             >
               <TextInput
@@ -139,7 +234,7 @@ const UserDetails = () => {
               borderWidth: 1,
               borderColor: "rgba(0,0,0,0.4)",
               borderRadius: 5,
-              marginVertical: 3,
+              marginVertical: 5,
             }}
           >
             <TextInput
@@ -157,7 +252,7 @@ const UserDetails = () => {
               borderWidth: 1,
               borderColor: "rgba(0,0,0,0.4)",
               borderRadius: 5,
-              marginVertical: 3,
+              marginVertical: 5,
             }}
           >
             <TextInput
@@ -180,7 +275,7 @@ const UserDetails = () => {
             padding: 10,
             marginVertical: 20,
             position: "absolute",
-            bottom: 0,
+            bottom: 10,
             width: "100%",
           }}
         >
@@ -196,6 +291,81 @@ const UserDetails = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      {mediaModal && (
+        <View
+          style={{
+            width: screenWidth,
+            borderRadius: 20,
+            backgroundColor: "white",
+            position: "absolute",
+            alignSelf: "center",
+            bottom: 0,
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontWeight: "500",
+              color: "#eb104e",
+              paddingTop: 10,
+              fontSize: 15,
+              paddingBottom: 6,
+              paddingHorizontal: 8,
+              borderBottomWidth: 2,
+              borderColor: "rgba(0,0,0,0.15)",
+            }}
+          >
+            Change Profile Picture
+          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+              flex: 1,
+              width: "100%",
+              paddingVertical: 20,
+            }}
+          >
+            <TouchableOpacity
+              onPress={uploadImageCamera}
+              style={{
+                backgroundColor: "rgba(235, 16, 78, 0.08)",
+                padding: 15,
+                borderRadius: 10,
+              }}
+            >
+              <Feather name="camera" size={36} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={uploadImageMedia}
+              style={{
+                backgroundColor: "rgba(235, 16, 78, 0.08)",
+                padding: 15,
+                borderRadius: 10,
+              }}
+            >
+              <MaterialIcons name="perm-media" size={36} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={deleteImage}
+              style={{
+                backgroundColor: "rgba(235, 16, 78, 0.08)",
+                padding: 15,
+                borderRadius: 10,
+              }}
+            >
+              <MaterialIcons name="delete-outline" size={36} color="#eb104e" />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            onPress={() => setMediaModal(false)}
+            style={{ position: "absolute", top: 12, right: 20 }}
+          >
+            <AntDesign name="close" size={20} color="#eb104e" />
+          </TouchableOpacity>
+        </View>
+      )}
     </SafeAreaView>
   );
 };

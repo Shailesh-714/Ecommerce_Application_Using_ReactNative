@@ -1,4 +1,5 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { SERVER_IP } from "@env";
 import React, { useContext, useState } from "react";
 import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -70,7 +71,7 @@ const CartScreen = () => {
 
   const handlePlaceOrder = async () => {
     try {
-      const response = await axios.post("http://192.168.2.176:3000/order", {
+      const response = await axios.post(`http://${SERVER_IP}/order`, {
         userEmail: userEmail,
         address: order.address,
         totalAmount: totalPrice,

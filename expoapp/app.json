@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "expoapp",
-    "slug": "expoapp",
+    "slug": "ecommerceapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/logo.png",
@@ -25,7 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
-    
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bfddee17-41de-460d-834a-dd2dd945d048"
+      }
+    },
+    "owner": "shailesh714"
   }
 }

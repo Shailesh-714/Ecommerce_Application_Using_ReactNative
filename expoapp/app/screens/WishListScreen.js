@@ -71,7 +71,6 @@ const WishListScreen = () => {
           style={{
             flexDirection: "row",
             flexWrap: "wrap",
-            // justifyContent: "",
             gap: screenWidth * 0.05,
             marginHorizontal: screenWidth * 0.04,
           }}

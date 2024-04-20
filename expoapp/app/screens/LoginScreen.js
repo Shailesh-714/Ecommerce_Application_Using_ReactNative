@@ -22,6 +22,7 @@ import { loadCartFromStorage } from "../redux/reducers/cartSlice";
 import { useDispatch } from "react-redux";
 import { loadWishlistFromStorage } from "../redux/reducers/dealSlice";
 import CustomAlert from "../components/CustomAlert";
+import { SERVER_IP } from "@env";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -38,11 +39,13 @@ const LoginScreen = () => {
     setUserPhoneNumber,
     setUserAddresses,
     userAddresses,
+    setProfilePicture,
+    setLoginStatus,
   } = useContext(AppContext);
   const dispatch = useDispatch();
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://192.168.2.176:3000/login", {
+      const response = await axios.post(`http://${SERVER_IP}/login`, {
         email: email,
         password: password,
       });
@@ -55,7 +58,16 @@ const LoginScreen = () => {
       setUserAddresses(addresses);
       dispatch(loadWishlistFromStorage(userEmail));
       dispatch(loadCartFromStorage(userEmail));
+      const profileUri = await AsyncStorage.getItem(
+        `@MyApp:ProfilePicture:${userEmail}`
+      );
+      if (profileUri !== "") {
+        setProfilePicture(profileUri);
+      } else {
+        setProfilePicture("");
+      }
       await AsyncStorage.setItem("token", token);
+      setLoginStatus(true);
       navigation.navigate("Main");
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -87,40 +99,40 @@ const LoginScreen = () => {
           <Text style={styles.logtext}>Login In to your Account</Text>
         </KeyboardAvoidingView>
       </View>
+      <KeyboardAvoidingView>
+        <View style={styles.inputContainer}>
+          <MaterialCommunityIcons
+            name="email-outline"
+            size={24}
+            color="rgba(255,255,255,0.4)"
+            style={{ paddingLeft: 7, paddingRight: 5 }}
+          />
+          <TextInput
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            placeholder="Enter your email"
+            placeholderTextColor={"rgba(255,255,255,0.4)"}
+            style={styles.inputText}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <MaterialCommunityIcons
-          name="email-outline"
-          size={24}
-          color="rgba(255,255,255,0.4)"
-          style={{ paddingLeft: 7, paddingRight: 5 }}
-        />
-        <TextInput
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          placeholder="Enter your email"
-          placeholderTextColor={"rgba(255,255,255,0.4)"}
-          style={styles.inputText}
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <MaterialCommunityIcons
-          name="key-outline"
-          size={24}
-          color="rgba(255,255,255,0.4)"
-          style={{ paddingLeft: 7, paddingRight: 5 }}
-        />
-        <TextInput
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={true}
-          placeholder="password"
-          placeholderTextColor={"rgba(255,255,255,0.4)"}
-          style={styles.inputText}
-        />
-      </View>
-
+        <View style={styles.inputContainer}>
+          <MaterialCommunityIcons
+            name="key-outline"
+            size={24}
+            color="rgba(255,255,255,0.4)"
+            style={{ paddingLeft: 7, paddingRight: 5 }}
+          />
+          <TextInput
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry={true}
+            placeholder="password"
+            placeholderTextColor={"rgba(255,255,255,0.4)"}
+            style={styles.inputText}
+          />
+        </View>
+      </KeyboardAvoidingView>
       <View style={styles.links}>
         <Text style={[{ color: "white" }, styles.remember]}>
           Keep me logged in

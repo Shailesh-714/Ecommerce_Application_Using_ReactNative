@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
+  const [loginStatus, setLoginStatus] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPhoneNumber, setUserPhoneNumber] = useState("");
@@ -17,10 +18,13 @@ export const AppProvider = ({ children }) => {
     paymentStatus: "",
   });
   const [totalAmount, setTotalAmount] = useState(0);
+  const [profilePicture, setProfilePicture] = useState("");
 
   return (
     <AppContext.Provider
       value={{
+        loginStatus,
+        setLoginStatus,
         userName,
         setUserName,
         userEmail,
@@ -35,6 +39,8 @@ export const AppProvider = ({ children }) => {
         setOrder,
         totalAmount,
         setTotalAmount,
+        profilePicture,
+        setProfilePicture,
       }}
     >
       {children}

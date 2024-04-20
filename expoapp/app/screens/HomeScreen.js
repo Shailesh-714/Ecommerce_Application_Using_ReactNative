@@ -9,8 +9,9 @@ import {
   ImageBackground,
   FlatList,
   useWindowDimensions,
+  TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Ionicons,
@@ -32,8 +33,14 @@ import CustomStarRating from "../components/CustomStarRating";
 
 const HomeScreen = ({ navigation }) => {
   const screenWidth = useWindowDimensions("window").width;
+  const [searchQuery, setSearchQuery] = useState("");
   const handleProductPress = (productId) => {
     navigation.navigate("Product", { id: productId });
+  };
+  const handleSearch = () => {
+    if (searchQuery !== "") {
+      navigation.navigate("SearchResult", { searchQuery });
+    }
   };
 
   return (
@@ -51,12 +58,8 @@ const HomeScreen = ({ navigation }) => {
             source={require("../assets/name_logo.png")}
             style={styles.nameLogo}
           />
-          <Pressable style={styles.location}>
-            <MaterialIcons
-              name="my-location"
-              size={10}
-              color="rgba(0,0,0,0.75)"
-            />
+          <View style={styles.location}>
+            <Ionicons name="cart" size={11} color="rgba(0,0,0,0.75)" />
             <Text
               style={[
                 styles.text,
@@ -68,15 +71,9 @@ const HomeScreen = ({ navigation }) => {
                 },
               ]}
             >
-              City - Coimbatore-641024
+              Online Shopping Platform
             </Text>
-            <MaterialIcons
-              name="keyboard-arrow-down"
-              size={16}
-              color="black"
-              style={{ marginLeft: -3 }}
-            />
-          </Pressable>
+          </View>
         </View>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
           <Octicons name="bell" size={20.5} color="rgba(0,0,0,1)" />
@@ -94,12 +91,16 @@ const HomeScreen = ({ navigation }) => {
           <TextInput
             placeholder="Search for Products"
             placeholderTextColor={"rgba(0,0,0,0.3)"}
+            onChangeText={(text) => setSearchQuery(text)}
+            onSubmitEditing={handleSearch}
             style={[
               styles.text,
               { marginLeft: 10, fontWeight: "500", width: "80%" },
             ]}
           />
-          <Ionicons name="search-sharp" size={24} color="#2606FF" />
+          <TouchableOpacity onPress={handleSearch}>
+            <Ionicons name="search-sharp" size={24} color="#2606FF" />
+          </TouchableOpacity>
         </Pressable>
       </LinearGradient>
       <ScrollView>

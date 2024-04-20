@@ -12,9 +12,6 @@ const ConfirmOrder = () => {
           source={require("../../assets/payment/OrderPlaced.png")}
           style={{ width: 200, height: 60 }}
         />
-        {/* <Text style={{ color: "black", fontWeight: "500", fontSize: 18 }}>
-          Order Confirmed
-        </Text> */}
       </View>
       <View style={{}}>
         <LottieView

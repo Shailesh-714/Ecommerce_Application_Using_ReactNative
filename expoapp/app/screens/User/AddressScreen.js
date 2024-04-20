@@ -8,6 +8,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
+import { SERVER_IP } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useState } from "react";
 import axios from "axios";
@@ -45,13 +46,10 @@ const AddressScreen = ({ showAddressHeader }) => {
   const addAddress = async () => {
     try {
       await addressValidation.validate(newAddress, { abortEarly: false });
-      const response = await axios.post(
-        "http://192.168.2.176:3000/addAddress",
-        {
-          email: userEmail,
-          newAddress: newAddress,
-        }
-      );
+      const response = await axios.post(`http://${SERVER_IP}/addAddress`, {
+        email: userEmail,
+        newAddress: newAddress,
+      });
       setErrors({});
       setAddNewAddress(false);
       const { addressList } = response.data;
@@ -70,13 +68,10 @@ const AddressScreen = ({ showAddressHeader }) => {
   };
   const deleteAddress = async (_id) => {
     try {
-      const response = await axios.post(
-        "http://192.168.2.176:3000/deleteAddress",
-        {
-          email: userEmail,
-          _id: _id,
-        }
-      );
+      const response = await axios.post(`http://${SERVER_IP}/deleteAddress`, {
+        email: userEmail,
+        _id: _id,
+      });
       const { addressList } = response.data;
       setUserAddresses(addressList);
     } catch (err) {

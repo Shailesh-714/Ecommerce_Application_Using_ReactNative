@@ -5,7 +5,7 @@ const PageNotReady = () => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>PAGE IS NOT READY YET!</Text>
-      <Text>Please visit us back Again, Thankyou :)</Text>
+      <Text>Please visit us back Again, Thankyou :{")"}</Text>
     </View>
   );
 };

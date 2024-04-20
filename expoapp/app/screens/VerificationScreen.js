@@ -14,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import CustomAlert from "../components/CustomAlert";
+import { SERVER_IP } from "@env";
 
 const VerificationScreen = ({ route }) => {
   const { name, email, password, verificationCode } = route.params;
@@ -27,14 +28,11 @@ const VerificationScreen = ({ route }) => {
   const handleVerification = async () => {
     if (userCode === verificationCode) {
       try {
-        const response = await axios.post(
-          "http://192.168.2.176:3000/email-verify",
-          {
-            name: name,
-            email: email,
-            password: password,
-          }
-        );
+        const response = await axios.post(`http://${SERVER_IP}/email-verify`, {
+          name: name,
+          email: email,
+          password: password,
+        });
         setErrorTitle("Success");
         setErrorMessage("Email verified Successfully! Login to Proceed");
         setErrorButton("PROCEED");
@@ -52,7 +50,7 @@ const VerificationScreen = ({ route }) => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post("http://192.168.2.176:3000/register", {
+      const response = await axios.post(`http://${SERVER_IP}/register`, {
         name: name,
         email: email,
         password: password,

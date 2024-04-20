@@ -18,6 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import RegisterValidationSchema from "../yup/RegisterValidationSchema";
 import CustomAlert from "../components/CustomAlert";
+import { SERVER_IP } from "@env";
 
 const RegisterScreen = () => {
   const [name, setName] = useState("");
@@ -35,7 +36,7 @@ const RegisterScreen = () => {
         { name, email, password },
         { abortEarly: false }
       );
-      const response = await axios.post("http://192.168.2.176:3000/register", {
+      const response = await axios.post(`http://${SERVER_IP}/register`, {
         name: name,
         email: email,
         password: password,
@@ -83,68 +84,71 @@ const RegisterScreen = () => {
           <Text style={styles.logtext}>Create an account in Impulse</Text>
         </KeyboardAvoidingView>
       </View>
+      <KeyboardAvoidingView>
+        <View style={styles.inputContainer}>
+          <MaterialIcons
+            name="person-outline"
+            size={24}
+            color="rgba(255,255,255,0.4)"
+            style={{ paddingLeft: 7 }}
+          />
+          <TextInput
+            value={name}
+            onChangeText={(text) => {
+              setName(text);
+            }}
+            placeholder="Enter your name"
+            placeholderTextColor={"rgba(255,255,255,0.4)"}
+            style={styles.inputText}
+          />
+        </View>
+        <View style={{ height: 20, width: 300 }}>
+          {errors.name && <Text style={styles.errorText}>*{errors.name}</Text>}
+        </View>
 
-      <View style={styles.inputContainer}>
-        <MaterialIcons
-          name="person-outline"
-          size={24}
-          color="rgba(255,255,255,0.4)"
-          style={{ paddingLeft: 7 }}
-        />
-        <TextInput
-          value={name}
-          onChangeText={(text) => {
-            setName(text);
-          }}
-          placeholder="Enter your name"
-          placeholderTextColor={"rgba(255,255,255,0.4)"}
-          style={styles.inputText}
-        />
-      </View>
-      <View style={{ height: 20, width: 300 }}>
-        {errors.name && <Text style={styles.errorText}>*{errors.name}</Text>}
-      </View>
+        <View style={styles.inputContainer}>
+          <MaterialCommunityIcons
+            name="email-outline"
+            size={24}
+            color="rgba(255,255,255,0.4)"
+            style={{ paddingLeft: 7 }}
+          />
+          <TextInput
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+            placeholder="Enter your email"
+            placeholderTextColor={"rgba(255,255,255,0.4)"}
+            style={styles.inputText}
+          />
+        </View>
+        <View style={{ height: 20, width: 300 }}>
+          {errors.email && (
+            <Text style={styles.errorText}>*{errors.email}</Text>
+          )}
+        </View>
 
-      <View style={styles.inputContainer}>
-        <MaterialCommunityIcons
-          name="email-outline"
-          size={24}
-          color="rgba(255,255,255,0.4)"
-          style={{ paddingLeft: 7 }}
-        />
-        <TextInput
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          placeholder="Enter your email"
-          placeholderTextColor={"rgba(255,255,255,0.4)"}
-          style={styles.inputText}
-        />
-      </View>
-      <View style={{ height: 20, width: 300 }}>
-        {errors.email && <Text style={styles.errorText}>*{errors.email}</Text>}
-      </View>
-
-      <View style={styles.inputContainer}>
-        <MaterialCommunityIcons
-          name="key-outline"
-          size={24}
-          color="rgba(255,255,255,0.4)"
-          style={{ paddingLeft: 7 }}
-        />
-        <TextInput
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          secureTextEntry={true}
-          placeholder="password"
-          placeholderTextColor={"rgba(255,255,255,0.4)"}
-          style={styles.inputText}
-        />
-      </View>
-      <View style={{ height: 20, width: 300 }}>
-        {errors.password && (
-          <Text style={styles.errorText}>*{errors.password}</Text>
-        )}
-      </View>
+        <View style={styles.inputContainer}>
+          <MaterialCommunityIcons
+            name="key-outline"
+            size={24}
+            color="rgba(255,255,255,0.4)"
+            style={{ paddingLeft: 7 }}
+          />
+          <TextInput
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry={true}
+            placeholder="password"
+            placeholderTextColor={"rgba(255,255,255,0.4)"}
+            style={styles.inputText}
+          />
+        </View>
+        <View style={{ height: 20, width: 300 }}>
+          {errors.password && (
+            <Text style={styles.errorText}>*{errors.password}</Text>
+          )}
+        </View>
+      </KeyboardAvoidingView>
 
       <View style={styles.links}>
         <Text style={styles.termsAndConditions}>
