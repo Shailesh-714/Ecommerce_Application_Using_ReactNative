@@ -18,7 +18,9 @@ export const AppProvider = ({ children }) => {
     paymentStatus: "",
   });
   const [totalAmount, setTotalAmount] = useState(0);
-  const [profilePicture, setProfilePicture] = useState("");
+  const [profilePicture, setProfilePicture] = useState(
+    "../assets/defaultProfileImage.png"
+  );
 
   return (
     <AppContext.Provider

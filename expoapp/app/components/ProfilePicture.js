@@ -19,7 +19,9 @@ const ProfilePicture = ({ imgWidth, imgHeight }) => {
     <View>
       <Image
         source={
-          profilePicture === "" ? defaultProfileImage : { uri: profilePicture }
+          profilePicture === ""
+            ? { uri: "../assets/defaultProfileImage.png" }
+            : { uri: profilePicture }
         }
         style={{ width: imgWidth, height: imgHeight, borderRadius: 1000 }}
       />
