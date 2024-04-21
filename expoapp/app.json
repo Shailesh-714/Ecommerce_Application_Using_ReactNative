@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "expoapp",
+    "name": "Impulse",
     "slug": "ecommerceapp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/logo.png",
         "backgroundColor": "#020121"
       }
     },
