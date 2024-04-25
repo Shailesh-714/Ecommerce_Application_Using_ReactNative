@@ -71,14 +71,17 @@ const CartScreen = () => {
 
   const handlePlaceOrder = async () => {
     try {
-      const response = await axios.post(`http://${SERVER_IP}/order`, {
-        userEmail: userEmail,
-        address: order.address,
-        totalAmount: totalPrice,
-        paymentMethod: order.paymentMethod,
-        paymentStatus: order.paymentStatus,
-        products: productInfoList,
-      });
+      const response = await axios.post(
+        `https://bold-foal-purely.ngrok-free.app/order`,
+        {
+          userEmail: userEmail,
+          address: order.address,
+          totalAmount: totalPrice,
+          paymentMethod: order.paymentMethod,
+          paymentStatus: order.paymentStatus,
+          products: productInfoList,
+        }
+      );
     } catch (error) {
       console.log(error);
     }

@@ -17,7 +17,6 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 import RegisterValidationSchema from "../yup/RegisterValidationSchema";
 import CustomAlert from "../components/CustomAlert";
-import { SERVER_IP } from "@env";
 
 const RegisterScreen = () => {
   const [name, setName] = useState("");
@@ -35,11 +34,14 @@ const RegisterScreen = () => {
         { name, email, password },
         { abortEarly: false }
       );
-      const response = await axios.post(`http://${SERVER_IP}/register`, {
-        name: name,
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        `https://bold-foal-purely.ngrok-free.app/register`,
+        {
+          name: name,
+          email: email,
+          password: password,
+        }
+      );
       const { verificationCode } = response.data;
       navigation.navigate("Verify", {
         name,

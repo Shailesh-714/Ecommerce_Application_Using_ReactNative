@@ -25,9 +25,12 @@ const OrderedScreen = () => {
   const navigation = useNavigation();
   const fetchOrderData = async () => {
     try {
-      const response = await axios.post(`http://${SERVER_IP}/getOrderDetails`, {
-        userEmail: userEmail,
-      });
+      const response = await axios.post(
+        `https://bold-foal-purely.ngrok-free.app/getOrderDetails`,
+        {
+          userEmail: userEmail,
+        }
+      );
       const { orders } = response.data;
       setOrderData(orders);
     } catch (error) {

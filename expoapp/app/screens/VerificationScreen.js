@@ -27,11 +27,14 @@ const VerificationScreen = ({ route }) => {
   const handleVerification = async () => {
     if (userCode === verificationCode) {
       try {
-        const response = await axios.post(`http://${SERVER_IP}/email-verify`, {
-          name: name,
-          email: email,
-          password: password,
-        });
+        const response = await axios.post(
+          `https://bold-foal-purely.ngrok-free.app/email-verify`,
+          {
+            name: name,
+            email: email,
+            password: password,
+          }
+        );
         setErrorTitle("Success");
         setErrorMessage("Email verified Successfully! Login to Proceed");
         setErrorButton("PROCEED");
@@ -49,11 +52,14 @@ const VerificationScreen = ({ route }) => {
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post(`http://${SERVER_IP}/register`, {
-        name: name,
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        `https://bold-foal-purely.ngrok-free.app/register`,
+        {
+          name: name,
+          email: email,
+          password: password,
+        }
+      );
       const { verificationCode } = response.data;
       navigation.navigate("Verify", {
         name,

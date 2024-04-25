@@ -43,10 +43,13 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(`http://${SERVER_IP}/login`, {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        `https://bold-foal-purely.ngrok-free.app/login`,
+        {
+          email: email,
+          password: password,
+        }
+      );
       const { token, username, userEmail, phoneNumber, age, addresses } =
         response.data;
       setUserEmail(userEmail);
@@ -94,7 +97,9 @@ const LoginScreen = () => {
 
       <View>
         <KeyboardAvoidingView>
-          <Text style={styles.logtext}>Login In to your Account</Text>
+          <Text style={styles.logtext}>
+            Login In to your Account{SERVER_IP}
+          </Text>
         </KeyboardAvoidingView>
       </View>
       <KeyboardAvoidingView>
@@ -135,9 +140,11 @@ const LoginScreen = () => {
         <Text style={[{ color: "white" }, styles.remember]}>
           Keep me logged in
         </Text>
-        <Text style={[{ color: "#008FFF" }, styles.forgot]}>
-          Forgot password?
-        </Text>
+        <TouchableOpacity>
+          <Text style={[{ color: "#008FFF" }, styles.forgot]}>
+            Forgot password?
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <TouchableOpacity onPress={handleLogin}>

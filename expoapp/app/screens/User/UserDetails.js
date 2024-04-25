@@ -48,7 +48,7 @@ const UserDetails = () => {
   const updateUserData = async () => {
     try {
       const response = await axios.post(
-        `http://${SERVER_IP}/update-user-data`,
+        `https://bold-foal-purely.ngrok-free.app/update-user-data`,
         {
           email: userEmail,
           name: newUsername,
