@@ -1,6 +1,5 @@
 import {
   Image,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -8,21 +7,15 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
+import { deals } from "../data/DealsData";
 import { SERVER_IP } from "@env";
 import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Ionicons,
-  MaterialIcons,
-  FontAwesome5,
-  Octicons,
-  Feather,
-} from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 import Wishlist from "../components/Wishlist";
 import Cart from "../components/Cart";
 import axios from "axios";
 import { AppContext } from "../components/AppContext";
-import { deals } from "../data/DealsData";
 import CustomDate from "../components/CustomDate";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 const OrderedScreen = () => {

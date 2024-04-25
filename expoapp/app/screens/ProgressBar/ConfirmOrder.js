@@ -1,5 +1,5 @@
-import { Animated, StyleSheet, Text, View, Image } from "react-native";
-import React, { useEffect, useRef } from "react";
+import { StyleSheet, View, Image } from "react-native";
+import React from "react";
 import LottieView from "lottie-react-native";
 
 const ConfirmOrder = () => {

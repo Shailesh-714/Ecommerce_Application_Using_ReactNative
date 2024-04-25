@@ -9,7 +9,6 @@ import {
 import React, { useContext, useState } from "react";
 
 import { AppContext } from "./AppContext";
-import defaultProfileImage from "../assets/defaultProfileImage.png";
 
 const ProfilePicture = ({ imgWidth, imgHeight }) => {
   const { userEmail, profilePicture, setProfilePicture } =
@@ -20,7 +19,9 @@ const ProfilePicture = ({ imgWidth, imgHeight }) => {
       <Image
         source={
           profilePicture === ""
-            ? { uri: "../assets/defaultProfileImage.png" }
+            ? {
+                uri: "https://t4.ftcdn.net/jpg/03/40/12/49/360_F_340124934_bz3pQTLrdFpH92ekknuaTHy8JuXgG7fi.jpg",
+              }
             : { uri: profilePicture }
         }
         style={{ width: imgWidth, height: imgHeight, borderRadius: 1000 }}

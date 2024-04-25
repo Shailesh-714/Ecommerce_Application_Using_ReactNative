@@ -8,10 +8,8 @@ import {
   TextInput,
   Pressable,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
 import React, { useContext, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
@@ -38,11 +36,11 @@ const LoginScreen = () => {
     setUserAge,
     setUserPhoneNumber,
     setUserAddresses,
-    userAddresses,
     setProfilePicture,
     setLoginStatus,
   } = useContext(AppContext);
   const dispatch = useDispatch();
+
   const handleLogin = async () => {
     try {
       const response = await axios.post(`http://${SERVER_IP}/login`, {

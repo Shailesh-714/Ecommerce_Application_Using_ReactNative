@@ -19,7 +19,7 @@ export const AppProvider = ({ children }) => {
   });
   const [totalAmount, setTotalAmount] = useState(0);
   const [profilePicture, setProfilePicture] = useState(
-    "../assets/defaultProfileImage.png"
+    "https://t4.ftcdn.net/jpg/03/40/12/49/360_F_340124934_bz3pQTLrdFpH92ekknuaTHy8JuXgG7fi.jpg"
   );
 
   return (

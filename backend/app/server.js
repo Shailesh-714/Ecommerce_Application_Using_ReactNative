@@ -48,6 +48,26 @@ const UserSchema = new mongoose.Schema({
 });
 const User = mongoose.model("User", UserSchema);
 
+//product model
+const productSchema = new mongoose.Schema({
+  id: String,
+  title: String,
+  subtitle: String,
+  oldPrice: Number,
+  price: Number,
+  rating: Number,
+  reviews: Number,
+  image: String,
+  carouselImages: [String],
+  description: String,
+  wishlisted: Boolean,
+  addedtocart: Boolean,
+  count: Number,
+  category: [String],
+});
+
+const Product = mongoose.model("Product", productSchema);
+
 //order model
 const orderSchema = new mongoose.Schema({
   userEmail: {
@@ -162,6 +182,16 @@ app.post("/login", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
+  }
+});
+
+app.get("/products", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 

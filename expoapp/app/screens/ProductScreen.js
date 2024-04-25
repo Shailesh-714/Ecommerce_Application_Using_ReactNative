@@ -9,12 +9,7 @@ import {
   FlatList,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Octicons,
-  FontAwesome5,
-  Feather,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { Octicons, MaterialIcons } from "@expo/vector-icons";
 import { deals } from "../data/DealsData";
 import Like from "../components/Like";
 import AddtoCart from "../components/AddtoCart";

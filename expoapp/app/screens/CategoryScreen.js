@@ -2,13 +2,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Ionicons,
-  MaterialIcons,
-  FontAwesome5,
-  Octicons,
-  Feather,
-} from "@expo/vector-icons";
+import { MaterialIcons, Octicons } from "@expo/vector-icons";
 import Wishlist from "../components/Wishlist";
 import Cart from "../components/Cart";
 

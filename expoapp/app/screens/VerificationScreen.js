@@ -1,5 +1,4 @@
 import {
-  Alert,
   Pressable,
   StyleSheet,
   Text,

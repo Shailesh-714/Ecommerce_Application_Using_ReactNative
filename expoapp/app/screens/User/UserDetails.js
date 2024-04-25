@@ -1,12 +1,9 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   View,
-  Animated,
   Dimensions,
-  TouchableWithoutFeedback,
   TextInput,
-  Pressable,
   Text,
   Alert,
   TouchableOpacity,
@@ -28,8 +25,6 @@ import Cart from "../../components/Cart";
 import ProfilePicture from "../../components/ProfilePicture";
 import * as Imagepicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const { height } = Dimensions.get("window");
 
 const UserDetails = () => {
   const {

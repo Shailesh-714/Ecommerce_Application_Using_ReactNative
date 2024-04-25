@@ -4,12 +4,47 @@ import StackNavigator from "./app/navigation/StackNavigator";
 import { Provider } from "react-redux";
 import store from "./app/redux/store";
 import { AppProvider } from "./app/components/AppContext";
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback, useEffect, useState } from "react";
 
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync().then(() =>
+          setAppIsReady(true)
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  };
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
     <Provider store={store}>
       <AppProvider>
-        <StackNavigator />
+        <SafeAreaView
+          onLayout={onLayoutRootView}
+          style={{
+            flex: 1,
+          }}
+        >
+          <StackNavigator />
+        </SafeAreaView>
       </AppProvider>
     </Provider>
   );

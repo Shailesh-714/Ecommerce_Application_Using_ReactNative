@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { useContext, useState } from "react";
 import {
   FontAwesome,
-  FontAwesome5,
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";

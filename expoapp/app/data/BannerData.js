@@ -1,15 +1,21 @@
 const images = [
   {
     id: "0",
-    image: require("../assets/offers/offer1.png"),
+    image: {
+      uri: "https://assets.indiadesire.com/images/pilgrim%20birthday%20sale.jpg",
+    },
   },
   {
     id: "1",
-    image: require("../assets/offers/offer2.png"),
+    image: {
+      uri: "https://www.shoppre.com/img/shoppre/shopping-festival-deals.jpg",
+    },
   },
   {
     id: "2",
-    image: require("../assets/offers/offer3.png"),
+    image: {
+      uri: "https://www.shoppre.com/img/shoppre/shoppre-saver-sale.jpg",
+    },
   },
 ];
 

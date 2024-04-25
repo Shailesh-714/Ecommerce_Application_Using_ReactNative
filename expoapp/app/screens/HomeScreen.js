@@ -13,15 +13,8 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  Ionicons,
-  MaterialIcons,
-  FontAwesome5,
-  Octicons,
-  Feather,
-} from "@expo/vector-icons";
+import { Ionicons, Octicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
-import { useFonts } from "expo-font";
 import Like from "../components/Like";
 import { images } from "../data/BannerData";
 import { deals } from "../data/DealsData";

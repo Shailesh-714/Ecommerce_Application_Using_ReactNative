@@ -21,7 +21,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/logo.png",
         "backgroundColor": "#020121"
-      }
+      },
+      "package": "com.impulse.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

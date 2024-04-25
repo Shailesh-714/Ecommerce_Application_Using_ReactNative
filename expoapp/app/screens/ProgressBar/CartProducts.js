@@ -7,18 +7,10 @@ import {
   Image,
   useWindowDimensions,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import {
-  Ionicons,
-  MaterialIcons,
-  FontAwesome5,
-  Octicons,
-  Feather,
-} from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { deals } from "../../data/DealsData";
+import React, { useContext, useEffect } from "react";
+
 import { selectCartItems } from "../../redux/reducers/cartSlice";
-import { Selector, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import AddtoCart from "../../components/AddtoCart";
 import Like from "../../components/Like";
 import { useNavigation } from "@react-navigation/native";

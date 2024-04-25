@@ -8,17 +8,11 @@ import {
   useWindowDimensions,
 } from "react-native";
 import React from "react";
-import {
-  Ionicons,
-  MaterialIcons,
-  FontAwesome5,
-  Octicons,
-  Feather,
-} from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { deals } from "../data/DealsData";
 import { selectWishlistedItems } from "../redux/reducers/dealSlice";
-import { Selector, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Cart from "../components/Cart";
 import Wishlist from "../components/Wishlist";
 import AddtoCart from "../components/AddtoCart";
