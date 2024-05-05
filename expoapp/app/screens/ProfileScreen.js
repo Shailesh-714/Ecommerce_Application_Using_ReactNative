@@ -27,15 +27,17 @@ import ProfilePicture from "../components/ProfilePicture";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileScreen = () => {
-  const { userName, userEmail, userPhoneNumber, setLoginStatus } =
+  const { userName, userEmail, userPhoneNumber, setIsLoggedIn, isLoggedIn } =
     useContext(AppContext);
   const screenWidth = useWindowDimensions("window").width;
   const navigation = useNavigation();
+
   return (
     <SafeAreaView
       style={{
         marginTop: 5,
         flex: 1,
+        alignItems: "center",
       }}
     >
       <View
@@ -80,8 +82,8 @@ const ProfileScreen = () => {
             backgroundColor: "#020121",
             borderRadius: 10,
             marginTop: 30,
-            width: "100%",
-            marginBottom: 10,
+            width: 320,
+            marginBottom: 5,
 
             ...Platform.select({
               ios: {},
@@ -143,7 +145,9 @@ const ProfileScreen = () => {
             flexWrap: "wrap",
             gap: 10,
             alignItems: "center",
-            marginVertical: 20,
+            marginVertical: 5,
+            alignSelf: "center",
+            justifyContent: "center",
           }}
         >
           <Pressable
@@ -212,7 +216,13 @@ const ProfileScreen = () => {
           </Pressable>
         </View>
         <View
-          style={{ width: "100%", gap: 20, position: "absolute", bottom: 35 }}
+          style={{
+            width: "100%",
+            gap: 20,
+            position: "absolute",
+            bottom: 35,
+            alignItems: "left",
+          }}
         >
           <TouchableOpacity
             onPress={() => navigation.navigate("PageNotReady")}
@@ -254,9 +264,8 @@ const ProfileScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={async () => {
-              await setLoginStatus(false);
-              AsyncStorage.removeItem("token");
-              navigation.navigate("Login");
+              await AsyncStorage.removeItem("token");
+              navigation.replace("Login");
             }}
             style={{ flexDirection: "row", gap: 16, alignItems: "center" }}
           >

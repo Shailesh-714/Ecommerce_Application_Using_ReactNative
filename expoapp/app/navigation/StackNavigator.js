@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
@@ -31,13 +31,12 @@ import OrderDetails from "../screens/User/OrderDetails";
 import UserDetails from "../screens/User/UserDetails";
 import SearchResult from "../screens/SearchResult";
 import { AppContext } from "../components/AppContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import LoadingScreen from "../components/LoadingScreen";
 
 const StackNavigator = () => {
-  const { loginStatus } = useContext(AppContext);
+  const { userEmail, setIsLoggedIn } = useContext(AppContext);
   const Stack = createNativeStackNavigator();
-  // const customFonts = useFonts({
-  //   courgette: require("../assets/fonts/Courgette-Regular.ttf"),
-  // });
   const Tab = createBottomTabNavigator();
   function BottomTabs() {
     return (
@@ -133,27 +132,26 @@ const StackNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {!loginStatus && (
-          <Stack.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{ headerShown: false }}
-          />
-        )}
-        {!loginStatus && (
-          <Stack.Screen
-            name="Verify"
-            component={VerificationScreen}
-            options={{ headerShown: false }}
-          />
-        )}
-        {!loginStatus && (
-          <Stack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-        )}
+        <Stack.Screen
+          name="Loading"
+          component={LoadingScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Verify"
+          component={VerificationScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Main"
           component={BottomTabs}
@@ -199,7 +197,6 @@ const StackNavigator = () => {
           component={UserDetails}
           options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="PageNotReady"
           component={PageNotReady}

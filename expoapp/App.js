@@ -6,6 +6,7 @@ import store from "./app/redux/store";
 import { AppProvider } from "./app/components/AppContext";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);

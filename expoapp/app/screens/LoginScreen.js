@@ -37,7 +37,6 @@ const LoginScreen = () => {
     setUserPhoneNumber,
     setUserAddresses,
     setProfilePicture,
-    setLoginStatus,
   } = useContext(AppContext);
   const dispatch = useDispatch();
 
@@ -65,10 +64,19 @@ const LoginScreen = () => {
       if (profileUri !== "") {
         setProfilePicture(profileUri);
       } else {
-        setProfilePicture("");
+        setProfilePicture(
+          "https://t4.ftcdn.net/jpg/03/40/12/49/360_F_340124934_bz3pQTLrdFpH92ekknuaTHy8JuXgG7fi.jpg"
+        );
       }
       await AsyncStorage.setItem("token", token);
-      setLoginStatus(true);
+      await AsyncStorage.setItem(`${token}userEmail`, userEmail);
+      await AsyncStorage.setItem(`${token}userName`, username);
+      await AsyncStorage.setItem(`${token}userPhoneNumber`, phoneNumber);
+      await AsyncStorage.setItem(`${token}userAge`, age);
+      await AsyncStorage.setItem(
+        `${token}userAddresses`,
+        JSON.stringify(addresses)
+      );
       navigation.navigate("Main");
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -97,9 +105,7 @@ const LoginScreen = () => {
 
       <View>
         <KeyboardAvoidingView>
-          <Text style={styles.logtext}>
-            Login In to your Account{SERVER_IP}
-          </Text>
+          <Text style={styles.logtext}>Login In to your Account</Text>
         </KeyboardAvoidingView>
       </View>
       <KeyboardAvoidingView>

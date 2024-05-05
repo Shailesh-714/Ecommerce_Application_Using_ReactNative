@@ -4,22 +4,20 @@
     "slug": "ecommerceapp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./app/assets/logo.png",
+    "icon": "./app/assets/splash_img.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./app/assets/splash_img.png",
       "resizeMode": "contain",
       "backgroundColor": "#020121"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/logo.png",
+        "foregroundImage": "./app/assets/splash_img.png",
         "backgroundColor": "#020121"
       },
       "package": "com.impulse.app"
