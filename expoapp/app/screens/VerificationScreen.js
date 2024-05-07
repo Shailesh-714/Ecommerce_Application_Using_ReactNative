@@ -28,7 +28,7 @@ const VerificationScreen = ({ route }) => {
     if (userCode === verificationCode) {
       try {
         const response = await axios.post(
-          `https://bold-foal-purely.ngrok-free.app/email-verify`,
+          `https://react-native-9ode.onrender.com/email-verify`,
           {
             name: name,
             email: email,
@@ -53,7 +53,7 @@ const VerificationScreen = ({ route }) => {
   const handleRegister = async () => {
     try {
       const response = await axios.post(
-        `https://bold-foal-purely.ngrok-free.app/register`,
+        `https://react-native-9ode.onrender.com/register`,
         {
           name: name,
           email: email,

@@ -35,7 +35,7 @@ const RegisterScreen = () => {
         { abortEarly: false }
       );
       const response = await axios.post(
-        `https://bold-foal-purely.ngrok-free.app/register`,
+        `https://react-native-9ode.onrender.com/register`,
         {
           name: name,
           email: email,
