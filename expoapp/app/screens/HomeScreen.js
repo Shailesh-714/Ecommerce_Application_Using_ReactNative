@@ -201,6 +201,7 @@ const HomeScreen = ({ navigation }) => {
                   backgroundColor: "white",
                   borderRadius: 10,
                   maxWidth: 157,
+                  shadowColor: "#333333",
                 }}
               >
                 <Image
