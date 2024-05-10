@@ -57,8 +57,14 @@ const productSchema = new mongoose.Schema({
   price: Number,
   rating: Number,
   reviews: Number,
-  image: String,
-  carouselImages: [String],
+  image: {
+    uri: String,
+  },
+  carouselImages: [
+    {
+      uri: String,
+    },
+  ],
   description: String,
   wishlisted: Boolean,
   addedtocart: Boolean,
@@ -280,6 +286,15 @@ app.post("/getOrderDetails", async (req, res) => {
     res.json({ orders });
   } catch (err) {
     console.log(err);
+  }
+});
+
+app.get("/getProducts", async (req, res) => {
+  try {
+    const productData = await Product.find();
+    res.json({ productData });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
