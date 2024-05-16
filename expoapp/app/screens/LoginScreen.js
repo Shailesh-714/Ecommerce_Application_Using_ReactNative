@@ -43,7 +43,7 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        `https://react-native-9ode.onrender.com/login`,
+        `https://bold-foal-purely.ngrok-free.app/login`,
         {
           email: email,
           password: password,

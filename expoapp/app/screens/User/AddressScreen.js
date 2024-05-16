@@ -47,7 +47,7 @@ const AddressScreen = ({ showAddressHeader }) => {
     try {
       await addressValidation.validate(newAddress, { abortEarly: false });
       const response = await axios.post(
-        `https://react-native-9ode.onrender.com/addAddress`,
+        `https://bold-foal-purely.ngrok-free.app/addAddress`,
         {
           email: userEmail,
           newAddress: newAddress,
@@ -72,7 +72,7 @@ const AddressScreen = ({ showAddressHeader }) => {
   const deleteAddress = async (_id) => {
     try {
       const response = await axios.post(
-        `https://react-native-9ode.onrender.com/deleteAddress`,
+        `https://bold-foal-purely.ngrok-free.app/deleteAddress`,
         {
           email: userEmail,
           _id: _id,

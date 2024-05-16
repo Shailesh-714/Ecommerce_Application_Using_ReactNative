@@ -72,7 +72,7 @@ const CartScreen = () => {
   const handlePlaceOrder = async () => {
     try {
       const response = await axios.post(
-        `https://react-native-9ode.onrender.com/order`,
+        `https://bold-foal-purely.ngrok-free.app/order`,
         {
           userEmail: userEmail,
           address: order.address,
