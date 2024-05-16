@@ -26,7 +26,7 @@ const OrderedScreen = () => {
   const fetchOrderData = async () => {
     try {
       const response = await axios.post(
-        `https://bold-foal-purely.ngrok-free.app/getOrderDetails`,
+        `https://react-native-9ode.onrender.com/getOrderDetails`,
         {
           userEmail: userEmail,
         }
