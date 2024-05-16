@@ -25,6 +25,7 @@ export const AppProvider = ({ children }) => {
   const [profilePicture, setProfilePicture] = useState(
     "https://t4.ftcdn.net/jpg/03/40/12/49/360_F_340124934_bz3pQTLrdFpH92ekknuaTHy8JuXgG7fi.jpg"
   );
+  const [loadProducts, setLoadProducts] = useState([]);
   const dispatch = useDispatch();
 
   const init = useCallback(async () => {
@@ -66,6 +67,11 @@ export const AppProvider = ({ children }) => {
         if (storedProfilePicture) {
           setProfilePicture(storedProfilePicture);
         }
+        const response = await axios.get(
+          `https://react-native-9ode.onrender.com/getProducts`
+        );
+        const { productData } = response.data;
+        setLoadProducts(productData);
         dispatch(loadWishlistFromStorage(storedUserEmail));
         dispatch(loadCartFromStorage(storedUserEmail));
       }
@@ -97,6 +103,8 @@ export const AppProvider = ({ children }) => {
         profilePicture,
         setProfilePicture,
         init,
+        loadProducts,
+        setLoadProducts,
       }}
     >
       {children}
