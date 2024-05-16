@@ -21,7 +21,6 @@ import {
   Foundation,
   Octicons,
 } from "@expo/vector-icons";
-import { useFonts } from "expo-font";
 import CartScreen from "../screens/CartScreen";
 import WishListScreen from "../screens/WishListScreen";
 import PageNotReady from "../screens/PageNotReady";
@@ -31,7 +30,6 @@ import OrderDetails from "../screens/User/OrderDetails";
 import UserDetails from "../screens/User/UserDetails";
 import SearchResult from "../screens/SearchResult";
 import { AppContext } from "../components/AppContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import LoadingScreen from "../components/LoadingScreen";
 
 const StackNavigator = () => {
