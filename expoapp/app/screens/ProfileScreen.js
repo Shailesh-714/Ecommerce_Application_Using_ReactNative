@@ -2,6 +2,7 @@ import {
   StyleSheet,
   Text,
   View,
+  SafeAreaView,
   useWindowDimensions,
   Platform,
   Pressable,
