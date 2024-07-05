@@ -16,15 +16,21 @@ import { deals } from "../data/DealsData";
 import CustomStarRating from "../components/CustomStarRating";
 import AddtoCart from "../components/AddtoCart";
 import Like from "../components/Like";
+import { useNavigation } from "@react-navigation/native";
 
 const SearchResult = ({ route }) => {
   const { searchQuery } = route.params;
+  const navigation = useNavigation()
   const screenWidth = useWindowDimensions("window").width;
+  const handleProductPress = (productId) => {
+    navigation.navigate("Product", { id: productId });
+  };
   return (
     <SafeAreaView
       style={{
         marginTop: 5,
         flex: 1,
+        backgroundColor:"white"
       }}
     >
       <View
@@ -95,6 +101,18 @@ const SearchResult = ({ route }) => {
                     backgroundColor: "white",
                     borderRadius: 10,
                     maxWidth: 155,
+                    shadowColor: "#333333",
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    },
+                    android: {
+                      elevation: 3,
+                    },
+                  }),
                   }}
                 >
                   <Image
@@ -129,6 +147,7 @@ const SearchResult = ({ route }) => {
                           fontSize: 11,
                           fontWeight: "400",
                           color: "grey",
+                          minHeight:35
                         },
                       ]}
                     >

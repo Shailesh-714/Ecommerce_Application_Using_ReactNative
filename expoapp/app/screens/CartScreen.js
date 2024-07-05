@@ -137,7 +137,7 @@ const CartScreen = () => {
       style={{
         marginTop: 5,
         flex: 1,
-        backgroundColor: "rgba(255,255,240,0.1)",
+        backgroundColor: "white",
       }}
     >
       <View

@@ -49,6 +49,7 @@ const OrderedScreen = () => {
       style={{
         marginTop: 5,
         flex: 1,
+        backgroundColor:"white"
       }}
     >
       <View
@@ -79,18 +80,31 @@ const OrderedScreen = () => {
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ marginHorizontal: screenWidth * 0.05 }}
       >
-        <View>
+        <View style={{justifyContent:"center", gap:8}}>
           {orderData.map((item, index) => (
             <View
               key={index}
               style={{
                 backgroundColor: "white",
+                width:screenWidth*0.92,
+                alignSelf:"center",
                 borderRadius: 10,
                 marginVertical: 5,
                 paddingHorizontal: 20,
                 paddingVertical: 10,
+                shadowColor: "#333333",
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    },
+                    android: {
+                      elevation: 3,
+                    },
+                  }),
               }}
             >
               <Text

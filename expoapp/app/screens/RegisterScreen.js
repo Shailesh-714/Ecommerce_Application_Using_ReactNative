@@ -106,6 +106,8 @@ const RegisterScreen = () => {
         <View style={{ height: 20, width: 300 }}>
           {errors.name && <Text style={styles.errorText}>*{errors.name}</Text>}
         </View>
+        </KeyboardAvoidingView>
+<KeyboardAvoidingView>
 
         <View style={styles.inputContainer}>
           <MaterialCommunityIcons
@@ -127,7 +129,8 @@ const RegisterScreen = () => {
             <Text style={styles.errorText}>*{errors.email}</Text>
           )}
         </View>
-
+        </KeyboardAvoidingView>
+        <KeyboardAvoidingView>
         <View style={styles.inputContainer}>
           <MaterialCommunityIcons
             name="key-outline"
@@ -194,6 +197,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#020121",
     alignItems: "center",
+    justifyContent:"center"
   },
   errorText: {
     color: "#FF0000",
@@ -202,7 +206,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   logo: {
-    marginTop: 105,
     width: 150,
     height: 150,
   },

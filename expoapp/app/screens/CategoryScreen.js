@@ -15,20 +15,10 @@ const CategoryScreen = () => {
     "Beauty & Personal Care",
     "Books & Media",
     "Toys & Games",
-    "Sports & Outdoors",
-    "Health & Wellness",
-    "Automotive & Tools",
-    "Grocery & Household Essentials",
     "Pet Supplies",
     "Jewelry & Watches",
     "Baby & Kids",
-    "Office Supplies",
-    "Furniture & Decor",
-    "Travel & Luggage",
     "Musical Instruments",
-    "Art & Craft Supplies",
-    "Party Supplies",
-    "Fitness & Exercise Equipment",
   ];
   return (
     <SafeAreaView
@@ -68,7 +58,7 @@ const CategoryScreen = () => {
         {category_list.map((item, index) => (
           <Pressable
             key={index}
-            onPress={() => navigation.navigate("PageNotReady")}
+            onPress={() => navigation.navigate("CategoryProduct", {category:item})}
           >
             <View
               style={{

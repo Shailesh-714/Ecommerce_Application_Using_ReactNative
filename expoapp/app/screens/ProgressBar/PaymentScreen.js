@@ -56,6 +56,18 @@ const PaymentScreen = () => {
                 borderWidth: 1,
                 borderColor:
                   order.paymentMethod === "COD" ? "#eb104e" : "rgba(0,0,0,0)",
+                  shadowColor: "#333333",
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    },
+                    android: {
+                      elevation: 3,
+                    },
+                  }),
               }}
             >
               <View>
@@ -114,6 +126,18 @@ const PaymentScreen = () => {
                 borderWidth: 1,
                 borderColor:
                   order.paymentMethod === "UPI" ? "#eb104e" : "rgba(0,0,0,0)",
+                  shadowColor: "#333333",
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    },
+                    android: {
+                      elevation: 3,
+                    },
+                  }),
               }}
             >
               <View
@@ -203,6 +227,18 @@ const PaymentScreen = () => {
                 borderWidth: 1,
                 borderColor:
                   order.paymentMethod === "Card" ? "#eb104e" : "rgba(0,0,0,0)",
+                  shadowColor: "#333333",
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    },
+                    android: {
+                      elevation: 3,
+                    },
+                  }),
               }}
             >
               <View
@@ -298,6 +334,18 @@ const PaymentScreen = () => {
                   order.paymentMethod === "NetBanking"
                     ? "#eb104e"
                     : "rgba(0,0,0,0)",
+                    shadowColor: "#333333",
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    },
+                    android: {
+                      elevation: 3,
+                    },
+                  }),
               }}
             >
               <View
@@ -386,6 +434,18 @@ const PaymentScreen = () => {
                 borderWidth: 1,
                 borderColor:
                   order.paymentMethod === "EMI" ? "#eb104e" : "rgba(0,0,0,0)",
+                  shadowColor: "#333333",
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    },
+                    android: {
+                      elevation: 3,
+                    },
+                  }),
               }}
             >
               <View

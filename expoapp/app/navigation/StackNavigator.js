@@ -31,6 +31,7 @@ import UserDetails from "../screens/User/UserDetails";
 import SearchResult from "../screens/SearchResult";
 import { AppContext } from "../components/AppContext";
 import LoadingScreen from "../components/LoadingScreen";
+import CategoryProducts from "../screens/CategoryProducts";
 
 const StackNavigator = () => {
   const { userEmail, setIsLoggedIn } = useContext(AppContext);
@@ -158,6 +159,11 @@ const StackNavigator = () => {
         <Stack.Screen
           name="SearchResult"
           component={SearchResult}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CategoryProduct"
+          component={CategoryProducts}
           options={{ headerShown: false }}
         />
         <Stack.Screen

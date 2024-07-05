@@ -10,6 +10,7 @@ import {
   FlatList,
   useWindowDimensions,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -74,34 +75,58 @@ const HomeScreen = ({ navigation }) => {
           <Cart />
         </View>
       </View>
-      <LinearGradient
-        colors={["#FFAA46", "#2606FF"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.searchContainer}
+      <View
+        style={{
+          marginTop: 15,
+          marginBottom: 10,
+          borderRadius: 50,
+          width: "92%",
+          alignSelf: "center",
+          ...Platform.select({
+            ios: {
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 1 },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+            },
+            android: {
+              elevation: 3,
+            },
+          }),
+        }}
       >
-        <Pressable style={styles.search}>
-          <TextInput
-            placeholder="Search for Products"
-            placeholderTextColor={"rgba(0,0,0,0.3)"}
-            onChangeText={(text) => setSearchQuery(text)}
-            onSubmitEditing={handleSearch}
-            style={[
-              styles.text,
-              { marginLeft: 10, fontWeight: "500", width: "80%" },
-            ]}
-          />
-          <TouchableOpacity onPress={handleSearch}>
-            <Ionicons name="search-sharp" size={24} color="#2606FF" />
-          </TouchableOpacity>
-        </Pressable>
-      </LinearGradient>
+        <LinearGradient
+          colors={["#FFAA46", "#2606FF"]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={{
+            padding: 2.5,
+            borderRadius: 50,
+          }}
+        >
+          <Pressable style={styles.search}>
+            <TextInput
+              placeholder="Search for Products"
+              placeholderTextColor={"rgba(0,0,0,0.3)"}
+              onChangeText={(text) => setSearchQuery(text)}
+              onSubmitEditing={handleSearch}
+              style={[
+                styles.text,
+                { marginLeft: 10, fontWeight: "500", width: "80%" },
+              ]}
+            />
+            <TouchableOpacity onPress={handleSearch}>
+              <Ionicons name="search-sharp" size={24} color="#2606FF" />
+            </TouchableOpacity>
+          </Pressable>
+        </LinearGradient>
+      </View>
       <ScrollView>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {list.map((item, index) => (
             <Pressable
               key={index}
-              onPress={() => navigation.navigate("PageNotReady")}
+              onPress={() => navigation.navigate("CategoryProduct", {category:item.category})}
               style={{
                 margin: 15,
                 justifyContent: "center",
@@ -146,19 +171,46 @@ const HomeScreen = ({ navigation }) => {
         </ScrollView>
         <FlatList
           data={images}
+          showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => {
             return (
               <Pressable onPress={() => navigation.navigate("PageNotReady")}>
-                <View style={{ marginHorizontal: screenWidth * 0.05 }}>
-                  <Image
-                    source={item.image}
+                <View
+                  style={{
+                    marginHorizontal: screenWidth * 0.05,
+                    marginVertical: 10,
+                  }}
+                >
+                  <View
                     style={{
                       width: screenWidth * 0.9,
                       height: 200,
                       alignSelf: "center",
                       borderRadius: 15,
+                      backgroundColor: "white",
+                      ...Platform.select({
+                        ios: {
+                          shadowColor: "#000",
+                          shadowOffset: { width: 0, height: 1 },
+                          shadowOpacity: 0.25,
+                          shadowRadius: 3.84,
+                        },
+                        android: {
+                          elevation: 2,
+                        },
+                      }),
                     }}
-                  />
+                  >
+                    <Image
+                      source={item.image}
+                      style={{
+                        width: screenWidth * 0.9,
+                        height: 200,
+                        alignSelf: "center",
+                        borderRadius: 15,
+                      }}
+                    />
+                  </View>
                 </View>
               </Pressable>
             );
@@ -186,28 +238,37 @@ const HomeScreen = ({ navigation }) => {
           style={{
             flexDirection: "row",
             flexWrap: "wrap",
-            justifyContent: "center",
+            justifyContent: "space-between",
             gap: screenWidth * 0.05,
+            width: screenWidth * 0.9,
+            alignSelf: "center",
           }}
         >
-          {deals.map((item, index) => (
-            <Pressable
-              key={index}
-              style={{}}
-              onPress={() => handleProductPress(item.id)}
-            >
+          {deals.slice(0, 50).map((item, index) => (
+            <Pressable key={index} onPress={() => handleProductPress(item.id)}>
               <View
                 style={{
                   backgroundColor: "white",
                   borderRadius: 10,
-                  maxWidth: 157,
+                  maxWidth: screenWidth * 0.425,
                   shadowColor: "#333333",
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    },
+                    android: {
+                      elevation: 3,
+                    },
+                  }),
                 }}
               >
                 <Image
                   style={{
-                    width: 157,
-                    height: 130,
+                    width: screenWidth * 0.425,
+                    height: screenWidth * 0.4,
                     borderTopLeftRadius: 10,
                     borderTopRightRadius: 10,
                   }}
@@ -236,6 +297,7 @@ const HomeScreen = ({ navigation }) => {
                         fontSize: 11,
                         fontWeight: "400",
                         color: "grey",
+                        minHeight:35
                       },
                     ]}
                   >
@@ -292,7 +354,7 @@ const HomeScreen = ({ navigation }) => {
                   />
                 </View>
               </View>
-              <View style={{ position: "absolute", top: 6, left: 125 }}>
+              <View style={{ position: "absolute", top: 10, right: 10 }}>
                 <Like Iconsize={19} dealId={item.id} />
               </View>
             </Pressable>
@@ -319,14 +381,6 @@ const styles = StyleSheet.create({
     padding: 3,
     paddingHorizontal: 10,
     justifyContent: "space-between",
-  },
-  searchContainer: {
-    padding: 2.5,
-    marginTop: 15,
-    marginBottom: 10,
-    borderRadius: 50,
-    width: "92%",
-    alignSelf: "center",
   },
   location: {
     flexDirection: "row",

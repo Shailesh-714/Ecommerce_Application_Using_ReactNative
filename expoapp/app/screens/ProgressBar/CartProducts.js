@@ -40,6 +40,8 @@ const CartProducts = () => {
           style={{
             marginHorizontal: screenWidth * 0.05,
             width: screenWidth * 0.9,
+            gap:screenWidth*0.03,
+            marginVertical:10
           }}
         >
           {cartItems.map((item, index) => (
@@ -53,10 +55,21 @@ const CartProducts = () => {
                   backgroundColor: "white",
                   borderRadius: 10,
                   width: screenWidth * 0.9,
-                  marginVertical: 5,
+                  ...Platform.select({
+                    ios: {
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 1 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 3.84,
+                    },
+                    android: {
+                      elevation: 3,
+                    },
+                  }),
                 }}
               >
                 <View style={{ flexDirection: "row" }}>
+                  <View>
                   <Image
                     style={{
                       width: 105,
@@ -65,7 +78,9 @@ const CartProducts = () => {
                       margin: 10,
                     }}
                     source={item.image}
-                  />
+                  /><View style={{ position: "absolute", top: 15, right:15 }}>
+                  <Like Iconsize={20} dealId={item.id} />
+                </View></View>
                   <View>
                     <View
                       style={{
@@ -77,7 +92,7 @@ const CartProducts = () => {
                       }}
                     >
                       <Text
-                        numberOfLines={2}
+                        numberOfLines={1}
                         style={[
                           styles.text,
                           {
@@ -138,9 +153,6 @@ const CartProducts = () => {
                     </View>
                   </View>
                 </View>
-              </View>
-              <View style={{ position: "absolute", top: 20, left: 80 }}>
-                <Like Iconsize={20} dealId={item.id} />
               </View>
             </Pressable>
           ))}

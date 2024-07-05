@@ -46,7 +46,7 @@ export const AppProvider = ({ children }) => {
         );
         if (storedUserPhoneNumber) {
           setUserPhoneNumber(storedUserPhoneNumber);
-        }
+        } 
 
         const storedUserAge = await AsyncStorage.getItem(`${token}userAge`);
         if (storedUserAge) {

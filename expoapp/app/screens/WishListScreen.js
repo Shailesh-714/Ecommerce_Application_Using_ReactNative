@@ -31,7 +31,7 @@ const WishListScreen = () => {
       style={{
         marginTop: 5,
         flex: 1,
-        backgroundColor: "rgba(255,255,240,0.1)",
+        backgroundColor: "white",
       }}
     >
       <View
@@ -66,7 +66,10 @@ const WishListScreen = () => {
             flexDirection: "row",
             flexWrap: "wrap",
             gap: screenWidth * 0.05,
-            marginHorizontal: screenWidth * 0.04,
+            width:screenWidth*0.9,
+            alignSelf:"center",
+            justifyContent:"space-between",
+            marginVertical:10
           }}
         >
           {deals
@@ -83,13 +86,24 @@ const WishListScreen = () => {
                   style={{
                     backgroundColor: "white",
                     borderRadius: 10,
-                    maxWidth: 155,
+                    maxWidth: screenWidth*0.425,
+                    ...Platform.select({
+                      ios: {
+                        shadowColor: "#000",
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 3.84,
+                      },
+                      android: {
+                        elevation: 3,
+                      },
+                    }),
                   }}
                 >
                   <Image
                     style={{
-                      width: 155,
-                      height: 130,
+                      width: screenWidth*0.425,
+                      height: screenWidth*0.4,
                       borderTopLeftRadius: 10,
                       borderTopRightRadius: 10,
                     }}
@@ -153,9 +167,15 @@ const WishListScreen = () => {
                     </View>
                     <Text style={{ fontWeight: "500" }}>₹{item.price}</Text>
                   </View>
-                  <AddtoCart dealId={item.id} />
+                  <View style={{ marginLeft: 8, marginRight: 2 }}>
+                  <AddtoCart
+                    dealId={item.id}
+                    customStyle={{ marginRight: 3 }}
+                    showGotoCart={true}
+                  />
                 </View>
-                <View style={{ position: "absolute", top: 6, left: 110 }}>
+                </View>
+                <View style={{ position: "absolute", top: 10, right:10, zIndex:10, }}>
                   <Like Iconsize={20} dealId={item.id} />
                 </View>
               </Pressable>

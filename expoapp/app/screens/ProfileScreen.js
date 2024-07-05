@@ -38,6 +38,7 @@ const ProfileScreen = () => {
         marginTop: 5,
         flex: 1,
         alignItems: "center",
+        backgroundColor:"white"
       }}
     >
       <View
@@ -85,10 +86,6 @@ const ProfileScreen = () => {
             width: 320,
             marginBottom: 5,
 
-            ...Platform.select({
-              ios: {},
-              android: {},
-            }),
           }}
         >
           <View
@@ -160,7 +157,18 @@ const ProfileScreen = () => {
               alignItems: "center",
               justifyContent: "center",
               gap: 10,
-              flexDirection: "row",
+              flexDirection: "row",shadowColor: "#333333",
+              ...Platform.select({
+                ios: {
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 1 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                },
+                android: {
+                  elevation: 3,
+                },
+              }),
             }}
           >
             <FontAwesome name="inbox" size={18} color="black" />
@@ -176,7 +184,18 @@ const ProfileScreen = () => {
               alignItems: "center",
               flexDirection: "row",
               justifyContent: "center",
-              gap: 10,
+              gap: 10,shadowColor: "#333333",
+              ...Platform.select({
+                ios: {
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 1 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                },
+                android: {
+                  elevation: 3,
+                },
+              }),
             }}
           >
             <FontAwesome5 name="heart" size={17} color="rgba(0,0,0,1)" />
@@ -192,7 +211,18 @@ const ProfileScreen = () => {
               alignItems: "center",
               justifyContent: "center",
               gap: 10,
-              flexDirection: "row",
+              flexDirection: "row",shadowColor: "#333333",
+              ...Platform.select({
+                ios: {
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 1 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                },
+                android: {
+                  elevation: 3,
+                },
+              }),
             }}
           >
             <Feather name="shopping-bag" size={18} color="rgba(0,0,0,1)" />
@@ -208,7 +238,18 @@ const ProfileScreen = () => {
               alignItems: "center",
               justifyContent: "center",
               gap: 10,
-              flexDirection: "row",
+              flexDirection: "row",shadowColor: "#333333",
+              ...Platform.select({
+                ios: {
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 1 },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                },
+                android: {
+                  elevation: 3,
+                },
+              }),
             }}
           >
             <Entypo name="location" size={18} color="black" />
@@ -226,7 +267,7 @@ const ProfileScreen = () => {
         >
           <TouchableOpacity
             onPress={() => navigation.navigate("PageNotReady")}
-            style={{ flexDirection: "row", gap: 15, alignItems: "center" }}
+            style={{ flexDirection: "row", gap: 15, alignItems: "center", }}
           >
             <MaterialIcons name="help-outline" size={24} color="black" />
             <Text style={{ fontSize: 16, fontWeight: "500" }}>
