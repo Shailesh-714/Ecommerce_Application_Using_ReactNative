@@ -1,2 +1,3 @@
 ecommerce_app.code-workspace
 .env*
+node_modules
