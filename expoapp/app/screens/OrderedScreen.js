@@ -8,8 +8,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { deals } from "../data/DealsData";
-import { SERVER_IP } from "@env";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Octicons } from "@expo/vector-icons";
 import Wishlist from "../components/Wishlist";

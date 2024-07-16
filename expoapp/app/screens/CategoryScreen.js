@@ -25,7 +25,7 @@ const CategoryScreen = () => {
       style={{
         marginTop: 5,
         flex: 1,
-        backgroundColor: "rgba(255,255,240,0.1)",
+        backgroundColor: "rgba(250,250,250,1)",
       }}
     >
       <View
@@ -65,12 +65,23 @@ const CategoryScreen = () => {
                 backgroundColor: "white",
                 padding: 18,
                 width: "90%",
-                margin: 4,
+                margin: 5,
                 alignSelf: "center",
                 borderRadius: 10,
                 flexDirection: "row",
                 justifyContent: "space-between",
                 alignItems: "center",
+                ...Platform.select({
+                  ios: {
+                    shadowColor: "#000",
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                  },
+                  android: {
+                    elevation: 3,
+                  },
+                }),
               }}
             >
               <Text style={{ color: "grey", fontWeight: "500", fontSize: 16 }}>

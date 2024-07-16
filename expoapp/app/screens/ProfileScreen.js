@@ -38,7 +38,7 @@ const ProfileScreen = () => {
         marginTop: 5,
         flex: 1,
         alignItems: "center",
-        backgroundColor:"white"
+        backgroundColor:"rgba(250,250,250,1)"
       }}
     >
       <View
@@ -95,7 +95,7 @@ const ProfileScreen = () => {
               marginHorizontal: 20,
               borderWidth: 1.2,
               borderColor: "white",
-              padding: 3,
+              padding: 2,
             }}
           >
             <ProfilePicture imgHeight={45} imgWidth={45} />
@@ -259,15 +259,25 @@ const ProfileScreen = () => {
         <View
           style={{
             width: "100%",
-            gap: 20,
+            gap: 5,
             position: "absolute",
-            bottom: 35,
+            bottom: 20,
             alignItems: "left",
           }}
         >
           <TouchableOpacity
             onPress={() => navigation.navigate("PageNotReady")}
-            style={{ flexDirection: "row", gap: 15, alignItems: "center", }}
+            style={{ flexDirection: "row", gap: 15, alignItems: "center", backgroundColor:"white", padding:8, borderRadius:100,...Platform.select({
+              ios: {
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+              },
+              android: {
+                elevation: 1.5,
+              },
+            }), }}
           >
             <MaterialIcons name="help-outline" size={24} color="black" />
             <Text style={{ fontSize: 16, fontWeight: "500" }}>
@@ -276,7 +286,17 @@ const ProfileScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("PageNotReady")}
-            style={{ flexDirection: "row", gap: 14, alignItems: "center" }}
+            style={{ flexDirection: "row", gap: 14, alignItems: "center", backgroundColor:"white", padding:8, borderRadius:100,...Platform.select({
+              ios: {
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+              },
+              android: {
+                elevation: 1.5,
+              },
+            }),  }}
           >
             <Ionicons name="document-text-outline" size={24} color="black" />
             <Text style={{ fontSize: 16, fontWeight: "500" }}>
@@ -285,13 +305,33 @@ const ProfileScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("PageNotReady")}
-            style={{ flexDirection: "row", gap: 15, alignItems: "center" }}
+            style={{ flexDirection: "row", gap: 15, alignItems: "center", backgroundColor:"white", padding:8, borderRadius:100, ...Platform.select({
+              ios: {
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+              },
+              android: {
+                elevation: 1.5,
+              },
+            }),  }}
           >
             <Ionicons name="chatbubbles-outline" size={24} color="black" />
             <Text style={{ fontSize: 16, fontWeight: "500" }}>Contact Us</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ flexDirection: "row", gap: 15, alignItems: "center" }}
+            style={{ flexDirection: "row", gap: 15, alignItems: "center" , backgroundColor:"white", padding:8, borderRadius:100,...Platform.select({
+              ios: {
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+              },
+              android: {
+                elevation: 1.5,
+              },
+            }), }}
           >
             <Ionicons name="mail-outline" size={24} color="black" />
             <Text
@@ -308,7 +348,17 @@ const ProfileScreen = () => {
               await AsyncStorage.removeItem("token");
               navigation.replace("Login");
             }}
-            style={{ flexDirection: "row", gap: 16, alignItems: "center" }}
+            style={{ flexDirection: "row", gap: 16, alignItems: "center", backgroundColor:"white", padding:8, borderRadius:100,...Platform.select({
+              ios: {
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+              },
+              android: {
+                elevation: 1.5,
+              },
+            }),  }}
           >
             <Feather name="log-out" size={23} color="#ff0000" />
             <Text style={{ fontSize: 16, fontWeight: "500", color: "#ff0000" }}>

@@ -177,7 +177,7 @@ const ProductScreen = ({ route }) => {
                   marginHorizontal: 10,
                 }}
               >
-                ₹{product.oldPrice.toFixed(2)}
+                ₹{product.oldPrice.toFixed(0)}
               </Text>
               <Text style={{ color: "#50C878", fontWeight: "500" }}>
                 {(

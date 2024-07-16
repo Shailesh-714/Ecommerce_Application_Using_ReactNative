@@ -20,7 +20,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const SearchResult = ({ route }) => {
   const { searchQuery } = route.params;
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const screenWidth = useWindowDimensions("window").width;
   const handleProductPress = (productId) => {
     navigation.navigate("Product", { id: productId });
@@ -30,7 +30,7 @@ const SearchResult = ({ route }) => {
       style={{
         marginTop: 5,
         flex: 1,
-        backgroundColor:"white"
+        backgroundColor: "white",
       }}
     >
       <View
@@ -102,17 +102,17 @@ const SearchResult = ({ route }) => {
                     borderRadius: 10,
                     maxWidth: 155,
                     shadowColor: "#333333",
-                  ...Platform.select({
-                    ios: {
-                      shadowColor: "#000",
-                      shadowOffset: { width: 0, height: 1 },
-                      shadowOpacity: 0.25,
-                      shadowRadius: 3.84,
-                    },
-                    android: {
-                      elevation: 3,
-                    },
-                  }),
+                    ...Platform.select({
+                      ios: {
+                        shadowColor: "#000",
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 3.84,
+                      },
+                      android: {
+                        elevation: 3,
+                      },
+                    }),
                   }}
                 >
                   <Image
@@ -147,7 +147,7 @@ const SearchResult = ({ route }) => {
                           fontSize: 11,
                           fontWeight: "400",
                           color: "grey",
-                          minHeight:35
+                          minHeight: 35,
                         },
                       ]}
                     >
@@ -182,17 +182,24 @@ const SearchResult = ({ route }) => {
                       </Text>
                     </View>
                     <View style={{ flexDirection: "row", marginVertical: 3 }}>
-                      <Text style={{ fontWeight: "500" }}>₹{item.price}</Text>
                       <Text
+                        numberOfLines={1}
+                        style={{ maxWidth: "50%", fontWeight: "500" }}
+                      >
+                        ₹{item.price.toFixed(0)}
+                      </Text>
+                      <Text
+                        numberOfLines={1}
                         style={{
+                          maxWidth: "50%",
                           textDecorationLine: "line-through",
-                          fontSize: 12,
+                          fontSize: 10,
                           color: "grey",
                           fontWeight: "300",
                           marginHorizontal: 10,
                         }}
                       >
-                        ₹{item.oldPrice}
+                        ₹{item.oldPrice.toFixed(0)}
                       </Text>
                     </View>
                   </View>

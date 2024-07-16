@@ -66,10 +66,10 @@ const WishListScreen = () => {
             flexDirection: "row",
             flexWrap: "wrap",
             gap: screenWidth * 0.05,
-            width:screenWidth*0.9,
-            alignSelf:"center",
-            justifyContent:"space-between",
-            marginVertical:10
+            width: screenWidth * 0.9,
+            alignSelf: "center",
+            justifyContent: "space-between",
+            marginVertical: 10,
           }}
         >
           {deals
@@ -86,7 +86,7 @@ const WishListScreen = () => {
                   style={{
                     backgroundColor: "white",
                     borderRadius: 10,
-                    maxWidth: screenWidth*0.425,
+                    maxWidth: screenWidth * 0.425,
                     ...Platform.select({
                       ios: {
                         shadowColor: "#000",
@@ -102,8 +102,8 @@ const WishListScreen = () => {
                 >
                   <Image
                     style={{
-                      width: screenWidth*0.425,
-                      height: screenWidth*0.4,
+                      width: screenWidth * 0.425,
+                      height: screenWidth * 0.4,
                       borderTopLeftRadius: 10,
                       borderTopRightRadius: 10,
                     }}
@@ -154,28 +154,42 @@ const WishListScreen = () => {
                         ★ {item.rating}
                       </Text>
                       <Text
+                        numberOfLines={1}
                         style={{
+                          maxWidth: "50%",
                           textDecorationLine: "line-through",
-                          fontSize: 12,
+                          fontSize: 10,
                           color: "grey",
                           fontWeight: "300",
                           marginHorizontal: 10,
                         }}
                       >
-                        ₹{item.oldPrice}
+                        ₹{item.oldPrice.toFixed(0)}
                       </Text>
                     </View>
-                    <Text style={{ fontWeight: "500" }}>₹{item.price}</Text>
+                    <Text
+                      numberOfLines={1}
+                      style={{ maxWidth: "50%", fontWeight: "500" }}
+                    >
+                      ₹{item.price.toFixed(0)}
+                    </Text>
                   </View>
                   <View style={{ marginLeft: 8, marginRight: 2 }}>
-                  <AddtoCart
-                    dealId={item.id}
-                    customStyle={{ marginRight: 3 }}
-                    showGotoCart={true}
-                  />
+                    <AddtoCart
+                      dealId={item.id}
+                      customStyle={{ marginRight: 3 }}
+                      showGotoCart={true}
+                    />
+                  </View>
                 </View>
-                </View>
-                <View style={{ position: "absolute", top: 10, right:10, zIndex:10, }}>
+                <View
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 10,
+                    zIndex: 10,
+                  }}
+                >
                   <Like Iconsize={20} dealId={item.id} />
                 </View>
               </Pressable>

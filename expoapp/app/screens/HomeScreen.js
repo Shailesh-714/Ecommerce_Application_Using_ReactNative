@@ -126,7 +126,11 @@ const HomeScreen = ({ navigation }) => {
           {list.map((item, index) => (
             <Pressable
               key={index}
-              onPress={() => navigation.navigate("CategoryProduct", {category:item.category})}
+              onPress={() =>
+                navigation.navigate("CategoryProduct", {
+                  category: item.category,
+                })
+              }
               style={{
                 margin: 15,
                 justifyContent: "center",
@@ -297,7 +301,7 @@ const HomeScreen = ({ navigation }) => {
                         fontSize: 11,
                         fontWeight: "400",
                         color: "grey",
-                        minHeight:35
+                        minHeight: 35,
                       },
                     ]}
                   >
@@ -332,17 +336,24 @@ const HomeScreen = ({ navigation }) => {
                     </Text>
                   </View>
                   <View style={{ flexDirection: "row", marginVertical: 3 }}>
-                    <Text style={{ fontWeight: "500" }}>₹{item.price}</Text>
                     <Text
+                      numberOfLines={1}
+                      style={{ maxWidth: "50%", fontWeight: "500" }}
+                    >
+                      ₹{item.price.toFixed(0)}
+                    </Text>
+                    <Text
+                      numberOfLines={1}
                       style={{
+                        maxWidth: "50%",
                         textDecorationLine: "line-through",
-                        fontSize: 12,
+                        fontSize: 10,
                         color: "grey",
                         fontWeight: "300",
                         marginHorizontal: 10,
                       }}
                     >
-                      ₹{item.oldPrice}
+                      ₹{item.oldPrice.toFixed(0)}
                     </Text>
                   </View>
                 </View>
@@ -371,7 +382,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 5,
     flex: 1,
-    backgroundColor: "rgba(255,255,255,1)",
+    backgroundColor: "rgba(250,250,250,1)",
   },
   search: {
     flexDirection: "row",

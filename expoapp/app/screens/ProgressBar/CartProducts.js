@@ -40,8 +40,8 @@ const CartProducts = () => {
           style={{
             marginHorizontal: screenWidth * 0.05,
             width: screenWidth * 0.9,
-            gap:screenWidth*0.03,
-            marginVertical:10
+            gap: screenWidth * 0.03,
+            marginVertical: 10,
           }}
         >
           {cartItems.map((item, index) => (
@@ -70,17 +70,19 @@ const CartProducts = () => {
               >
                 <View style={{ flexDirection: "row" }}>
                   <View>
-                  <Image
-                    style={{
-                      width: 105,
-                      height: 105,
-                      borderRadius: 5,
-                      margin: 10,
-                    }}
-                    source={item.image}
-                  /><View style={{ position: "absolute", top: 15, right:15 }}>
-                  <Like Iconsize={20} dealId={item.id} />
-                </View></View>
+                    <Image
+                      style={{
+                        width: 105,
+                        height: 105,
+                        borderRadius: 5,
+                        margin: 10,
+                      }}
+                      source={item.image}
+                    />
+                    <View style={{ position: "absolute", top: 15, right: 15 }}>
+                      <Like Iconsize={20} dealId={item.id} />
+                    </View>
+                  </View>
                   <View>
                     <View
                       style={{
@@ -106,17 +108,17 @@ const CartProducts = () => {
                         {item.title}
                       </Text>
                       <View style={{ flexDirection: "row", marginVertical: 2 }}>
-                        <Text style={{ fontWeight: "500" }}>₹{item.price}</Text>
+                        <Text style={{ fontWeight: "500" }}>₹{item.price.toFixed(0)}</Text>
                         <Text
                           style={{
                             textDecorationLine: "line-through",
-                            fontSize: 12,
+                            fontSize: 10,
                             color: "grey",
                             fontWeight: "300",
                             marginHorizontal: 10,
                           }}
                         >
-                          ₹{item.oldPrice}
+                          ₹{item.oldPrice.toFixed(0)}
                         </Text>
                       </View>
                       <View
